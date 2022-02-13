@@ -227,6 +227,7 @@ end
 
   wire wr_reg_DE; 
 
+//determine which source registers are to be used in instruction
 reg rs1_read_DE; 
 reg rs2_read_DE; 
 
@@ -238,8 +239,22 @@ always @(*) begin
         rs1_read_DE = 1; 
         rs2_read_DE = 0; 
       end 
-    endcase 
-
+    `R_Type:
+      begin 
+        rs1_read_DE = 1; 
+        rs2_read_DE = 1; 
+      end
+    `S_Type:
+      begin 
+        rs1_read_DE = 1; 
+        rs2_read_DE = 1; 
+      end
+    `U_Type:
+      begin 
+        rs1_read_DE = 0; 
+        rs2_read_DE = 0; 
+      end
+  endcase 
 end 
 
 assign regval1_DE = regs[rs1_DE]; 
@@ -256,11 +271,52 @@ assign regval2_DE = regs[rs2_DE];
   wire wr_csr_WB; // is this instruction writing into CSR ? 
 
   // signals come from WB stage for register WB 
-  assign { wr_reg_WB, wregno_WB, regval_WB, wcsrno_WB, wr_csr_WB} = from_WB_to_DE;  
+  assign { wr_reg_WB, wregno_WB, regval_WB, wcsrno_WB, wr_csr_WB, rd_WB, type_I_WB} = from_WB_to_DE;  
+  assign {rd_AGEX, type_I_AGEX} = from_AGEX_to_DE;
+  assign {rd_MEM, type_I_MEM} = from_MEM_to_DE;
+  //determine if stall is needed
+  wire [`REGNOBITS-1:0] rd_AGEX;
+  wire [`REGNOBITS-1:0] rd_MEM;
+  wire [`REGNOBITS-1:0] rd_WB;
+  wire [`TYPENOBITS-1:0] type_I_AGEX;
+  wire [`TYPENOBITS-1:0] type_I_MEM;
+  wire [`TYPENOBITS-1:0] type_I_WB;
 
+  assign pipeline_stall_DE = (((rs1_read_DE == 1) && (rs1_DE == rd_AGEX || rs1_DE == rd_MEM || rs1_DE == rd_WB))
+      || ((rs2_read_DE == 1) && (rs2_DE == rd_AGEX || rs2_DE == rd_MEM || rs2_DE == rd_WB))) 
+      ? 1 : 0;
 
-  wire pipeline_stall_DE;
-  assign pipeline_stall_DE = 0;  
+  always @(*) begin
+    reg is_type_I_AGEX_Valid = (type_I_AGEX == `R_Type || type_I_AGEX == `I_Type || type_I_AGEX == `U_Type) ? 1 : 0;
+    reg is_type_I_MEM_Valid = (type_I_MEM == `R_Type || type_I_MEM == `I_Type || type_I_MEM == `U_Type) ? 1 : 0;
+    reg is_type_I_WB_Valid = (type_I_WB == `R_Type || type_I_WB == `I_Type || type_I_WB == `U_Type) ? 1 : 0;
+
+    if (rs1_read_DE == 1) begin
+      if ((rs1_DE == rd_AGEX && is_type_I_AGEX_Valid) || (rs1_DE == rd_MEM && is_type_I_MEM_Valid) || (rs1_DE == rd_WB && is_type_I_MEM_Valid)) begin
+        pipeline_stall_DE = 1;
+      end else if (rs2_read_DE == 1) begin
+        if ((rs2_DE == rd_AGEX && is_type_I_AGEX_Valid) || (rs2_DE == rd_MEM && is_type_I_MEM_Valid) || (rs2_DE == rd_WB && is_type_I_MEM_Valid)) begin
+          pipeline_stall_DE = 1;
+        end else begin
+          pipeline_stall_DE = 0;
+        end
+      end else begin
+        pipeline_stall_DE = 0;
+      end
+    end else if (rs2_read_DE == 1) begin
+      if ((rs2_DE == rd_AGEX && is_type_I_AGEX_Valid) || (rs2_DE == rd_MEM && is_type_I_MEM_Valid) || (rs2_DE == rd_WB && is_type_I_MEM_Valid)) begin
+        pipeline_stall_DE = 1;
+      end else begin
+        pipeline_stall_DE = 0;
+      end
+    end else begin
+      pipeline_stall_DE = 0;
+    end
+  end
+
+  reg pipeline_stall_DE;
+  // wire pipeline_stall_DE;
+  // assign pipeline_stall_DE = 0;  
   assign from_DE_to_FE = {pipeline_stall_DE}; // pass the DE stage stall signal to FE stage 
 
 
@@ -288,6 +344,7 @@ assign regval2_DE = regs[rs2_DE];
                                   sxt_imm_DE, 
                                   rd_DE,   
                                   wr_reg_DE, 
+                                  type_I_DE,
                                   // more signals might need
                                    bus_canary_DE 
                                   }; 

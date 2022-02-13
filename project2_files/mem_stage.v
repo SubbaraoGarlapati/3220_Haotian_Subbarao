@@ -55,7 +55,8 @@ module MEM_STAGE(
   wire [`DBITS-1:0] aluout_MEM; 
   wire [`REGNOBITS-1:0] rd_MEM; 
   wire wr_reg_MEM; 
-   
+  wire [`TYPENOBITS-1:0] type_I_MEM;
+
 
     
    assign MEM_latch_out = MEM_latch; 
@@ -68,6 +69,7 @@ module MEM_STAGE(
                                  aluout_MEM, 
                                  rd_MEM, 
                                 wr_reg_MEM, 
+                                type_I_MEM,
                                  // more signals might need
                                  bus_canary_MEM
                                  } = from_AGEX_latch;  
@@ -82,10 +84,12 @@ module MEM_STAGE(
                                 aluout_MEM, 
                                 rd_MEM, 
                                 wr_reg_MEM, 
+                                type_I_MEM,
                                         // more signals might need    
                               bus_canary_MEM                   
    };
  
+  assign from_MEM_to_DE = {rd_MEM, type_I_MEM};
 
   always @ (posedge clk or posedge reset) begin
     if(reset) begin

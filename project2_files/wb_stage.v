@@ -17,6 +17,7 @@ module WB_STAGE(
   wire [`DBITS-1:0] PC_WB;
   wire [`DBITS-1:0] inst_count_WB; 
   wire [`BUS_CANARY_WIDTH-1:0] bus_canary_WB;
+  wire [`TYPENOBITS-1:0] type_I_WB;
 
   
 
@@ -36,6 +37,7 @@ module WB_STAGE(
   assign wregno_WB = rd_WB; 
   assign regval_WB = aluout_WB; 
 
+
    assign {
                                 inst_WB,
                                 PC_WB,
@@ -44,6 +46,7 @@ module WB_STAGE(
                                 aluout_WB, 
                                 rd_WB,
                                 wr_reg_WB, 
+                                type_I_WB,  
                                 // more signals might need                        
                                  bus_canary_WB 
                                  } = from_MEM_latch; 
@@ -54,7 +57,7 @@ module WB_STAGE(
 
 
 // we send register write (and CSR register) information to DE stage 
-assign from_WB_to_DE = {wr_reg_WB, wregno_WB, regval_WB, wcsrno_WB, wr_csr_WB} ;  
+assign from_WB_to_DE = {wr_reg_WB, wregno_WB, regval_WB, wcsrno_WB, wr_csr_WB, rd_WB, type_I_WB} ;  
 
 // this code need to be commented out when we synthesize the code later 
     // special workaround to get tests Pass/Fail status

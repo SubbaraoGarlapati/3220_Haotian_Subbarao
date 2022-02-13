@@ -36,6 +36,7 @@ module AGEX_STAGE(
   wire [`DBITS-1:0]  sxt_imm_AGEX; 
   wire [`REGNOBITS-1:0] rd_AGEX;   // rd ID 
   wire wr_reg_AGEX; 
+  wire [`TYPENOBITS-1:0] type_I_AGEX;
 
   always @ (*) begin
     case (op_I_AGEX)
@@ -91,6 +92,7 @@ end
                                   sxt_imm_AGEX, 
                                   rd_AGEX, 
                                   wr_reg_AGEX, 
+                                  type_I_AGEX,
                                           // more signals might need
                                   bus_canary_AGEX
                                   } = from_DE_latch; 
@@ -104,10 +106,13 @@ end
                                 aluout_AGEX, 
                                 rd_AGEX, 
                                 wr_reg_AGEX, 
+                                type_I_AGEX,
                                        // more signals might need
                                 bus_canary_AGEX     
                                  }; 
  
+  assign from_AGEX_to_DE = {rd_AGEX, type_I_AGEX};
+
   always @ (posedge clk or posedge reset) begin
     if(reset) begin
       AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};

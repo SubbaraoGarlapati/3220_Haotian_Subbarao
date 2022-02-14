@@ -40,7 +40,10 @@ module AGEX_STAGE(
 
   always @ (*) begin
     case (op_I_AGEX)
-      `BEQ_I : br_cond_AGEX = 1; // write correct code to check the branch condition. 
+      `BEQ_I : 
+        begin br_cond_AGEX = 1; // write correct code to check the branch condition. 
+          br_cond_AGEX = (regval1_AGEX == regval2_AGEX) ? 1 : 0;
+        end
       /*
       `BNE_I : ...
       `BLT_I : ...
@@ -62,7 +65,8 @@ module AGEX_STAGE(
       aluout_AGEX = regval1_AGEX + regval2_AGEX; 
     `ADDI_I:
       aluout_AGEX = regval1_AGEX + sxt_imm_AGEX; 
-
+    `BEQ_I:
+      aluout_AGEX = PC_AGEX + sxt_imm_AGEX;
        //  ...
 
 	 endcase 
@@ -111,13 +115,17 @@ end
                                 bus_canary_AGEX     
                                  }; 
  
-  assign from_AGEX_to_DE = {rd_AGEX, type_I_AGEX};
+  assign from_AGEX_to_FE = {br_cond_AGEX, aluout_AGEX};
+  assign from_AGEX_to_DE = {rd_AGEX, type_I_AGEX, br_cond_AGEX};
 
   always @ (posedge clk or posedge reset) begin
     if(reset) begin
       AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
       // might need more code here  
         end 
+    else if (br_cond_AGEX == 1) begin
+        AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
+      end
     else 
         begin
       // need to complete 

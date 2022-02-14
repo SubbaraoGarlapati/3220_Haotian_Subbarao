@@ -272,7 +272,9 @@ assign regval2_DE = regs[rs2_DE];
 
   // signals come from WB stage for register WB 
   assign { wr_reg_WB, wregno_WB, regval_WB, wcsrno_WB, wr_csr_WB, rd_WB, type_I_WB} = from_WB_to_DE;  
-  assign {rd_AGEX, type_I_AGEX} = from_AGEX_to_DE;
+  
+  
+  assign {rd_AGEX, type_I_AGEX, br_cond_AGEX_in_DE} = from_AGEX_to_DE;
   assign {rd_MEM, type_I_MEM} = from_MEM_to_DE;
   //determine if stall is needed
   wire [`REGNOBITS-1:0] rd_AGEX;
@@ -281,10 +283,11 @@ assign regval2_DE = regs[rs2_DE];
   wire [`TYPENOBITS-1:0] type_I_AGEX;
   wire [`TYPENOBITS-1:0] type_I_MEM;
   wire [`TYPENOBITS-1:0] type_I_WB;
+  wire br_cond_AGEX_in_DE;
 
-  assign pipeline_stall_DE = (((rs1_read_DE == 1) && (rs1_DE == rd_AGEX || rs1_DE == rd_MEM || rs1_DE == rd_WB))
-      || ((rs2_read_DE == 1) && (rs2_DE == rd_AGEX || rs2_DE == rd_MEM || rs2_DE == rd_WB))) 
-      ? 1 : 0;
+  // assign pipeline_stall_DE = (((rs1_read_DE == 1) && (rs1_DE == rd_AGEX || rs1_DE == rd_MEM || rs1_DE == rd_WB))
+  //     || ((rs2_read_DE == 1) && (rs2_DE == rd_AGEX || rs2_DE == rd_MEM || rs2_DE == rd_WB))) 
+  //     ? 1 : 0;
 
   always @(*) begin
     reg is_type_I_AGEX_Valid = (type_I_AGEX == `R_Type || type_I_AGEX == `I_Type || type_I_AGEX == `U_Type) ? 1 : 0;
@@ -418,7 +421,7 @@ always @ (posedge clk or posedge reset) begin // you need to expand this always 
       DE_latch <= {`DE_latch_WIDTH{1'b0}};
       end
      else begin  
-      if (pipeline_stall_DE) 
+      if (pipeline_stall_DE || br_cond_AGEX_in_DE) 
         DE_latch <= {`DE_latch_WIDTH{1'b0}};
       else
           DE_latch <= DE_latch_contents;

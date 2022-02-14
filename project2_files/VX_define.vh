@@ -17,13 +17,13 @@
 // address space is m 0x00000000 to 0x000fffff
   // [NOTICE] please note that both imem and dmem use the SAME "IDMEMINITFILE".
   // you need to change this line to change which test file to read 
-  `define IDMEMINITFILE "test/part1/test3.mem"
+  `define IDMEMINITFILE "test/part1/test4.mem"
   `define IMEMADDRBITS  16
   `define IMEMWORDBITS  2
   `define IMEMWORDS	  (1 << (`IMEMADDRBITS - `IMEMWORDBITS))
   `define DMEMADDRBITS  16
   `define DMEMWORDBITS  2
-  `define DMEMWORDS	  (1 << (`DMEMADDRBITS - `DMEMWORDBITS))
+  `define DMEMWORDS	  (1 << (`DMEMADDRBITS - `DMEMWORDBITS))  
    
   `define CSRNOBITS 4
   `define CSR_ID_BIT_MASK 12'hF // this should match with CSRNOBITS 
@@ -203,11 +203,11 @@
   `define MEM_latch_WIDTH    (`INSTBITS+`DBITS+ `IOPBITS + `DBITS+   `DBITS + `REGNOBITS + 1  + `TYPENOBITS + `BUS_CANARY_WIDTH) 
 
   `define from_DE_to_FE_WIDTH  1 
-  `define from_AGEX_to_FE_WIDTH 1
+  `define from_AGEX_to_FE_WIDTH (1 + `DBITS)
   `define from_MEM_to_FE_WIDTH 1
   `define from_WB_to_FE_WIDTH 1
 
-  `define from_AGEX_to_DE_WIDTH (`REGNOBITS + `TYPENOBITS)
+  `define from_AGEX_to_DE_WIDTH (`REGNOBITS + `TYPENOBITS + 1)
   `define from_MEM_to_DE_WIDTH  (`REGNOBITS + `TYPENOBITS)
   `define from_WB_to_DE_WIDTH  (1 + `REGNOBITS + `DBITS + `CSRNOBITS + 1 + `REGNOBITS + `TYPENOBITS) 
 

@@ -93,8 +93,8 @@ module DE_STAGE(
       op_I_DE = `SW_I; 
     else if ((op_DE == `JAL_OPCODE))
       op_I_DE = `JAL_I; 
-    else if ((op_DE == `JR_OPCODE) && (F3_DE == `JR_FUNCT3))
-      op_I_DE = `JR_I; 
+    // else if ((op_DE == `JR_OPCODE) && (F3_DE == `JR_FUNCT3))
+    //   op_I_DE = `JR_I; 
     else if ((op_DE == `JALR_OPCODE) && (F3_DE == `JALR_FUNCT3))
       op_I_DE = `JALR_I; 
     else if ((op_DE == `BEQ_OPCODE) && (F3_DE == `BEQ_FUNCT3))
@@ -200,12 +200,13 @@ always @(*) begin
     
    `B_immediate: 
      sxt_imm_DE = { {20{inst_DE[31]}}, inst_DE[7], inst_DE[30:25], inst_DE[11:8] , 1'b0};  
-     /*
+   
    `U_immediate: 
-     sxt_imm_DE = ... 
+     sxt_imm_DE = {inst_DE[31], inst_DE[30:20], inst_DE[19:12], 12'b0} << 12;
+     
    `J_immediate: 
-    sxt_imm_DE = ... 
-    */ 
+    sxt_imm_DE = {{12{inst_DE[31]}}, inst_DE[19:12], inst_DE[20], inst_DE[30:25], inst_DE[24:21], 1'b0}; 
+  
    default:
     sxt_imm_DE = 32'b0; 
   endcase  
@@ -235,10 +236,16 @@ reg rs2_read_DE;
 always @(*) begin 
   case (type_I_DE)
     `I_Type:
-      begin 
-        rs1_read_DE = 1; 
-        rs2_read_DE = 0; 
-      end 
+      if (op_I_DE == `AUIPC_I)
+        begin
+          rs1_read_DE = 0;
+          rs2_read_DE = 0;
+        end
+      else
+        begin 
+          rs1_read_DE = 1; 
+          rs2_read_DE = 0; 
+        end 
     `R_Type:
       begin 
         rs1_read_DE = 1; 
@@ -261,7 +268,8 @@ assign regval1_DE = regs[rs1_DE];
 assign regval2_DE = regs[rs2_DE]; 
 
  assign wr_reg_DE = ((op_I_DE == `ADDI_I) || (
-                    op_I_DE == `ADD_I)) ?  1: 0 ; 
+                    op_I_DE == `ADD_I) || (op_I_DE == `AUIPC_I)
+                    || (op_I_DE == `JAL_I) || (op_I_DE == `JALR_I)) ?  1: 0 ; 
 
  /* this signal is passed from WB stage */ 
   wire wr_reg_WB; // is this instruction writing into a register file? 
@@ -295,10 +303,10 @@ assign regval2_DE = regs[rs2_DE];
     reg is_type_I_WB_Valid = (type_I_WB == `R_Type || type_I_WB == `I_Type || type_I_WB == `U_Type) ? 1 : 0;
 
     if (rs1_read_DE == 1) begin
-      if ((rs1_DE == rd_AGEX && is_type_I_AGEX_Valid) || (rs1_DE == rd_MEM && is_type_I_MEM_Valid) || (rs1_DE == rd_WB && is_type_I_MEM_Valid)) begin
+      if ((rs1_DE == rd_AGEX && is_type_I_AGEX_Valid) || (rs1_DE == rd_MEM && is_type_I_MEM_Valid) || (rs1_DE == rd_WB && is_type_I_WB_Valid)) begin
         pipeline_stall_DE = 1;
       end else if (rs2_read_DE == 1) begin
-        if ((rs2_DE == rd_AGEX && is_type_I_AGEX_Valid) || (rs2_DE == rd_MEM && is_type_I_MEM_Valid) || (rs2_DE == rd_WB && is_type_I_MEM_Valid)) begin
+        if ((rs2_DE == rd_AGEX && is_type_I_AGEX_Valid) || (rs2_DE == rd_MEM && is_type_I_MEM_Valid) || (rs2_DE == rd_WB && is_type_I_WB_Valid)) begin
           pipeline_stall_DE = 1;
         end else begin
           pipeline_stall_DE = 0;
@@ -307,7 +315,7 @@ assign regval2_DE = regs[rs2_DE];
         pipeline_stall_DE = 0;
       end
     end else if (rs2_read_DE == 1) begin
-      if ((rs2_DE == rd_AGEX && is_type_I_AGEX_Valid) || (rs2_DE == rd_MEM && is_type_I_MEM_Valid) || (rs2_DE == rd_WB && is_type_I_MEM_Valid)) begin
+      if ((rs2_DE == rd_AGEX && is_type_I_AGEX_Valid) || (rs2_DE == rd_MEM && is_type_I_MEM_Valid) || (rs2_DE == rd_WB && is_type_I_WB_Valid)) begin
         pipeline_stall_DE = 1;
       end else begin
         pipeline_stall_DE = 0;
@@ -409,7 +417,7 @@ assign regval2_DE = regs[rs2_DE];
       csr_regs[14] <= {`DBITS{1'b0}};
       csr_regs[15] <= {`DBITS{1'b0}};
     end
-    else if(wr_reg_WB) 
+    else if(wr_reg_WB & wregno_WB != 0) 
 		  	regs[wregno_WB] <= regval_WB; 
     else if(wr_csr_WB) 
 		  	csr_regs[wcsrno_WB] <= regval_WB; 
@@ -421,7 +429,7 @@ always @ (posedge clk or posedge reset) begin // you need to expand this always 
       DE_latch <= {`DE_latch_WIDTH{1'b0}};
       end
      else begin  
-      if (pipeline_stall_DE || br_cond_AGEX_in_DE) 
+      if (pipeline_stall_DE || br_cond_AGEX_in_DE || inst_DE == 0) 
         DE_latch <= {`DE_latch_WIDTH{1'b0}};
       else
           DE_latch <= DE_latch_contents;

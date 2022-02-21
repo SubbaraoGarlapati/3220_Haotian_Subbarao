@@ -38,24 +38,43 @@ module AGEX_STAGE(
   wire wr_reg_AGEX; 
   wire [`TYPENOBITS-1:0] type_I_AGEX;
 
+  wire signed [`DBITS-1:0] s_regval1_AGEX;
+  wire signed [`DBITS-1:0] s_regval2_AGEX;
+  assign s_regval1_AGEX = regval1_AGEX;
+  assign s_regval2_AGEX = regval2_AGEX;
+  // signed comparison
+  // wire s_less;
+  // assign s_less = (s_regval1_AGEX < s_regval2_AGEX);
+  // //unsigned comparison
+  // wire less;
+  // assign less = (regval1_AGEX < regval2_AGEX);
+
   always @ (*) begin
     case (op_I_AGEX)
       `BEQ_I : 
         begin br_cond_AGEX = 1; // write correct code to check the branch condition. 
           br_cond_AGEX = (regval1_AGEX == regval2_AGEX) ? 1 : 0;
         end
-      /*
-      `BNE_I : ...
-      `BLT_I : ...
-      `BGE_I : ...
-      `BLTU_I: ..
-      `BGEU_I : ...
-      */
+      `BNE_I:
+        br_cond_AGEX = (regval1_AGEX == regval2_AGEX) ? 0 : 1;
+      `BLT_I : 
+        br_cond_AGEX = (s_regval1_AGEX < s_regval2_AGEX) ? 1 : 0;
+      `BGE_I : 
+        br_cond_AGEX = (s_regval1_AGEX >= s_regval2_AGEX) ? 1 : 0;
+      `BLTU_I: 
+        br_cond_AGEX = (regval1_AGEX < regval2_AGEX) ? 1 : 0;
+      `BGEU_I :
+        br_cond_AGEX = (regval1_AGEX >= regval2_AGEX) ? 1 : 0;
+      `JAL_I:
+        br_cond_AGEX = 1;
+      `JALR_I:
+        br_cond_AGEX = 1;
       default : br_cond_AGEX = 1'b0;
     endcase
   end
 
   reg [`DBITS-1:0] aluout_AGEX; 
+  reg [`DBITS-1:0] newpc_AGEX;
  // compute ALU operations  (alu out or memory addresses)
  
   always @ (*) begin
@@ -65,10 +84,30 @@ module AGEX_STAGE(
       aluout_AGEX = regval1_AGEX + regval2_AGEX; 
     `ADDI_I:
       aluout_AGEX = regval1_AGEX + sxt_imm_AGEX; 
-    `BEQ_I:
+    `AUIPC_I:
       aluout_AGEX = PC_AGEX + sxt_imm_AGEX;
-       //  ...
-
+    `BEQ_I:
+      newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+    `BNE_I:
+      newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+    `BLT_I:
+      newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+    `BGE_I:
+      newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+    `BLTU_I:
+      newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+    `BGEU_I :
+      newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+    `JAL_I:
+      begin
+        aluout_AGEX = pcplus_AGEX;
+        newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+      end
+    `JALR_I:
+      begin
+        aluout_AGEX = pcplus_AGEX;
+        newpc_AGEX = (regval1_AGEX + sxt_imm_AGEX) & 32'hfffffffe;
+      end
 	 endcase 
    
   end 
@@ -115,7 +154,7 @@ end
                                 bus_canary_AGEX     
                                  }; 
  
-  assign from_AGEX_to_FE = {br_cond_AGEX, aluout_AGEX};
+  assign from_AGEX_to_FE = {br_cond_AGEX, newpc_AGEX};
   assign from_AGEX_to_DE = {rd_AGEX, type_I_AGEX, br_cond_AGEX};
 
   always @ (posedge clk or posedge reset) begin
@@ -123,9 +162,11 @@ end
       AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
       // might need more code here  
         end 
-    else if (br_cond_AGEX == 1) begin
-        AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
-      end
+    // else if (br_cond_AGEX == 1) begin
+    //     AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
+    //   end
+    else if (inst_AGEX == 0)
+      AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
     else 
         begin
       // need to complete 

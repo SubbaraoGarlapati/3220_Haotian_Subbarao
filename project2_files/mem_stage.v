@@ -95,6 +95,8 @@ module MEM_STAGE(
     if(reset) begin
         MEM_latch <={`MEM_latch_WIDTH{1'b0}}; 
     end
+    else if (inst_MEM == 0)
+      MEM_latch <= {`MEM_latch_WIDTH{1'b0}};
     else 
      begin 
         MEM_latch <= MEM_latch_contents;

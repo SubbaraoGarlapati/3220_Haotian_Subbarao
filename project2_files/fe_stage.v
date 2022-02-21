@@ -70,8 +70,8 @@ module FE_STAGE(
   // **TODO: Complete the rest of the pipeline 
    //assign stall_pipe_FE = 0;  // you need to modify this line for your design 
   wire br_cond_AGEX_in_FE;
-  wire [`DBITS-1:0] aluout_AGEX_in_FE;
-  assign {br_cond_AGEX_in_FE, aluout_AGEX_in_FE} = from_AGEX_to_FE;
+  wire [`DBITS-1:0] newpc_AGEX;
+  assign {br_cond_AGEX_in_FE, newpc_AGEX} = from_AGEX_to_FE;
   
   assign stall_pipe_FE = from_DE_to_FE;
 
@@ -82,7 +82,7 @@ module FE_STAGE(
       inst_count_FE <= 1;  /* inst_count starts from 1 for easy human reading. 1st fetch instructions can have 1 */ 
       end 
      else if (br_cond_AGEX_in_FE) begin
-       PC_FE_latch <= aluout_AGEX_in_FE;
+       PC_FE_latch <= newpc_AGEX;
        inst_count_FE <= inst_count_FE + 1;
      end
      else if(!stall_pipe_FE) begin 
@@ -103,10 +103,10 @@ module FE_STAGE(
      else  
         begin 
          // this is just an example. you need to expand the contents of if/else
-         if  (stall_pipe_FE)
-            FE_latch <= FE_latch; 
-          else if (br_cond_AGEX_in_FE)
+          if (br_cond_AGEX_in_FE)
             FE_latch <= {`FE_latch_WIDTH{1'b0}};
+          else if  (stall_pipe_FE)
+            FE_latch <= FE_latch; 
           else 
             FE_latch <= FE_latch_contents; 
         end  

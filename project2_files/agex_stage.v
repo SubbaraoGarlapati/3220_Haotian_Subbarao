@@ -80,6 +80,8 @@ module AGEX_STAGE(
   always @ (*) begin
 
   case (op_I_AGEX)
+    `SUB_I:
+      aluout_AGEX = regval1_AGEX - regval2_AGEX; 
     `ADD_I: 
       aluout_AGEX = regval1_AGEX + regval2_AGEX; 
     `ADDI_I:

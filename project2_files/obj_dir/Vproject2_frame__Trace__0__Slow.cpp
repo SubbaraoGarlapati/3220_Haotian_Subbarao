@@ -250,7 +250,7 @@ VL_ATTR_COLD void Vproject2_frame___024root__trace_full_sub_0(Vproject2_frame___
     vluint32_t* const oldp VL_ATTR_UNUSED = tracep->oldp(vlSymsp->__Vm_baseCode);
     VlWide<5>/*159:0*/ __Vtemp_h83c4c2bf__0;
     VlWide<5>/*159:0*/ __Vtemp_hcce6bf99__0;
-    VlWide<8>/*255:0*/ __Vtemp_hb8ff8a27__0;
+    VlWide<8>/*255:0*/ __Vtemp_hff3a9c92__0;
     // Body
     tracep->fullIData(oldp+1,(vlSymsp->TOP__project2_frame.__PVT__cycle_count),32);
     tracep->fullIData(oldp+2,(vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__PC_FE_latch),32);
@@ -477,12 +477,13 @@ VL_ATTR_COLD void Vproject2_frame___024root__trace_full_sub_0(Vproject2_frame___
                                          >> 0x18U))),5);
     tracep->fullCData(oldp+92,((0x1fU & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[3U] 
                                          >> 0xbU))),5);
-    tracep->fullBit(oldp+93,((((((((0xcU == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE)) 
-                                   | (1U == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE))) 
-                                  | (0x16U == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE))) 
-                                 | (0x19U == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE))) 
-                                | (0x1bU == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE))) 
-                               | (0x15U == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE)))
+    tracep->fullBit(oldp+93,(((((((((0xcU == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE)) 
+                                    | (1U == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE))) 
+                                   | (0x16U == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE))) 
+                                  | (0x19U == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE))) 
+                                 | (0x1bU == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE))) 
+                                | (0x15U == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE))) 
+                               | (2U == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE)))
                                ? 1U : 0U)));
     tracep->fullBit(oldp+94,(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__rs1_read_DE));
     tracep->fullBit(oldp+95,(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__rs2_read_DE));
@@ -553,21 +554,23 @@ VL_ATTR_COLD void Vproject2_frame___024root__trace_full_sub_0(Vproject2_frame___
     tracep->fullIData(oldp+129,(((vlSymsp->TOP__project2_frame.__PVT__my_MEM_stage__DOT__MEM_latch[1U] 
                                   << 0x12U) | (vlSymsp->TOP__project2_frame.__PVT__my_MEM_stage__DOT__MEM_latch[0U] 
                                                >> 0xeU))),32);
-    __Vtemp_hb8ff8a27__0[0U] = ((vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__sxt_imm_DE 
+    __Vtemp_hff3a9c92__0[0U] = ((vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__sxt_imm_DE 
                                  << 0xeU) | ((0x3e00U 
                                               & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[3U] 
                                                  >> 2U)) 
-                                             | (((((((((0xcU 
-                                                        == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE)) 
-                                                       | (1U 
+                                             | ((((((((((0xcU 
+                                                         == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE)) 
+                                                        | (1U 
+                                                           == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE))) 
+                                                       | (0x16U 
                                                           == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE))) 
-                                                      | (0x16U 
+                                                      | (0x19U 
                                                          == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE))) 
-                                                     | (0x19U 
+                                                     | (0x1bU 
                                                         == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE))) 
-                                                    | (0x1bU 
+                                                    | (0x15U 
                                                        == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE))) 
-                                                   | (0x15U 
+                                                   | (2U 
                                                       == (IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE)))
                                                    ? 1U
                                                    : 0U) 
@@ -576,13 +579,13 @@ VL_ATTR_COLD void Vproject2_frame___024root__trace_full_sub_0(Vproject2_frame___
                                                     << 4U) 
                                                    | (0xfU 
                                                       & vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[0U])))));
-    __Vtemp_hb8ff8a27__0[1U] = ((vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__sxt_imm_DE 
+    __Vtemp_hff3a9c92__0[1U] = ((vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__sxt_imm_DE 
                                  >> 0x12U) | (vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__regs
                                               [(0x1fU 
                                                 & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[3U] 
                                                    >> 0x18U))] 
                                               << 0xeU));
-    __Vtemp_hb8ff8a27__0[2U] = ((vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__regs
+    __Vtemp_hff3a9c92__0[2U] = ((vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__regs
                                  [(0x1fU & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[3U] 
                                             >> 0x18U))] 
                                  >> 0x12U) | ((IData)(
@@ -599,7 +602,7 @@ VL_ATTR_COLD void Vproject2_frame___024root__trace_full_sub_0(Vproject2_frame___
                                                                           & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[3U] 
                                                                              >> 0x13U))])))) 
                                               << 0xeU));
-    __Vtemp_hb8ff8a27__0[3U] = (((IData)((((QData)((IData)(
+    __Vtemp_hff3a9c92__0[3U] = (((IData)((((QData)((IData)(
                                                            ((vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[1U] 
                                                              << 0x1cU) 
                                                             | (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[0U] 
@@ -626,7 +629,7 @@ VL_ATTR_COLD void Vproject2_frame___024root__trace_full_sub_0(Vproject2_frame___
                                                                               >> 0x13U))]))) 
                                                        >> 0x20U)) 
                                               << 0xeU));
-    __Vtemp_hb8ff8a27__0[4U] = ((0xfff00000U & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[1U] 
+    __Vtemp_hff3a9c92__0[4U] = ((0xfff00000U & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[1U] 
                                                 << 0x10U)) 
                                 | (((IData)(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__op_I_DE) 
                                     << 0xeU) | ((IData)(
@@ -644,23 +647,23 @@ VL_ATTR_COLD void Vproject2_frame___024root__trace_full_sub_0(Vproject2_frame___
                                                                                 >> 0x13U))]))) 
                                                          >> 0x20U)) 
                                                 >> 0x12U)));
-    __Vtemp_hb8ff8a27__0[5U] = (((0xf0000U & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[2U] 
+    __Vtemp_hff3a9c92__0[5U] = (((0xf0000U & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[2U] 
                                               << 0x10U)) 
                                  | (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[1U] 
                                     >> 0x10U)) | (0xfff00000U 
                                                   & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[2U] 
                                                      << 0x10U)));
-    __Vtemp_hb8ff8a27__0[6U] = (((0xf0000U & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[3U] 
+    __Vtemp_hff3a9c92__0[6U] = (((0xf0000U & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[3U] 
                                               << 0x10U)) 
                                  | (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[2U] 
                                     >> 0x10U)) | (0xfff00000U 
                                                   & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[3U] 
                                                      << 0x10U)));
-    __Vtemp_hb8ff8a27__0[7U] = ((0xf0000U & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[4U] 
+    __Vtemp_hff3a9c92__0[7U] = ((0xf0000U & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[4U] 
                                              << 0x10U)) 
                                 | (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[3U] 
                                    >> 0x10U));
-    tracep->fullWData(oldp+130,(__Vtemp_hb8ff8a27__0),244);
+    tracep->fullWData(oldp+130,(__Vtemp_hff3a9c92__0),244);
     tracep->fullIData(oldp+138,(vlSymsp->TOP__project2_frame.__PVT__my_DE_stage__DOT__regs
                                 [(0x1fU & (vlSymsp->TOP__project2_frame.__PVT__my_FE_stage__DOT__FE_latch[3U] 
                                            >> 0x13U))]),32);

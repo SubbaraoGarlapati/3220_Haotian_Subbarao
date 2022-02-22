@@ -118,6 +118,9 @@ module DE_STAGE(
   end 
 
 always @(*) begin 
+
+    type_I_DE = `I_Type; 
+    type_immediate_DE = `I_immediate;
     if ((op_I_DE == `ADD_I) || 
     (op_I_DE == `SUB_I ) || 
     (op_I_DE ==  `AND_I) || 
@@ -236,7 +239,7 @@ reg rs2_read_DE;
 always @(*) begin 
   case (type_I_DE)
     `I_Type:
-      if (op_I_DE == `AUIPC_I)
+      if (op_I_DE == `AUIPC_I || op_I_DE == `LUI_I)
         begin
           rs1_read_DE = 0;
           rs2_read_DE = 0;
@@ -269,7 +272,7 @@ assign regval2_DE = regs[rs2_DE];
 
  assign wr_reg_DE = ((op_I_DE == `ADDI_I) || (
                     op_I_DE == `ADD_I) || (op_I_DE == `AUIPC_I)
-                    || (op_I_DE == `JAL_I) || (op_I_DE == `JALR_I)) ?  1: 0 ; 
+                    || (op_I_DE == `JAL_I) || (op_I_DE == `JALR_I) || (op_I_DE  == `LUI_I)) ?  1: 0 ; 
 
  /* this signal is passed from WB stage */ 
   wire wr_reg_WB; // is this instruction writing into a register file? 

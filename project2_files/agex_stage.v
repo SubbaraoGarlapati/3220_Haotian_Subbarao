@@ -108,6 +108,8 @@ module AGEX_STAGE(
         aluout_AGEX = pcplus_AGEX;
         newpc_AGEX = (regval1_AGEX + sxt_imm_AGEX) & 32'hfffffffe;
       end
+    `LUI_I:
+      aluout_AGEX = sxt_imm_AGEX;
 	 endcase 
    
   end 

@@ -278,7 +278,8 @@ assign regval2_DE = regs[rs2_DE];
                     || (op_I_DE == `XOR_I) || (op_I_DE == `XORI_I) || (op_I_DE == `SLT_I)
                     || (op_I_DE == `SLTI_I) || (op_DE == `SLTU_I) || (op_I_DE == `SLTIU_I)
                     || (op_I_DE == `SRA_I) || (op_I_DE == `SRAI_I) || (op_I_DE == `SRL_I)
-                    || (op_I_DE == `SRLI_I) || (op_I_DE == `SLL_I) || (op_I_DE == `SLLI_I)) ?  1: 0 ; 
+                    || (op_I_DE == `SRLI_I) || (op_I_DE == `SLL_I) || (op_I_DE == `SLLI_I)
+                    || (op_I_DE == `LW_I)) ?  1: 0 ; 
 
  /* this signal is passed from WB stage */ 
   wire wr_reg_WB; // is this instruction writing into a register file? 

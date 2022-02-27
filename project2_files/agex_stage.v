@@ -78,10 +78,25 @@ module AGEX_STAGE(
   reg [`DBITS-1:0] aluout_AGEX; 
   reg [`DBITS-1:0] newpc_AGEX;
  // compute ALU operations  (alu out or memory addresses)
+
+   //memory components for store
+  reg wr_mem_AGEX;
+  reg [`DBITS-1:0] wr_val_AGEX;
+
+  always @ (*) begin
+    wr_mem_AGEX = (op_I_AGEX == `SW_I) ? 1 : 0;
+    wr_val_AGEX = regval2_AGEX;
+  end
  
   always @ (*) begin
 
   case (op_I_AGEX)
+    `LW_I:
+      aluout_AGEX = regval1_AGEX + sxt_imm_AGEX;
+    `SW_I:
+      begin
+        aluout_AGEX = regval1_AGEX + sxt_imm_AGEX;
+      end
     `SRA_I:
       aluout_AGEX = (regval1_AGEX) >>> (regval2_AGEX[4:0]);
     `SRAI_I:
@@ -190,6 +205,8 @@ end
                                 rd_AGEX, 
                                 wr_reg_AGEX, 
                                 type_I_AGEX,
+                                wr_mem_AGEX,
+                                wr_val_AGEX,
                                        // more signals might need
                                 bus_canary_AGEX     
                                  }; 

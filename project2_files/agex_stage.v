@@ -82,6 +82,18 @@ module AGEX_STAGE(
   always @ (*) begin
 
   case (op_I_AGEX)
+    `SRA_I:
+      aluout_AGEX = (regval1_AGEX) >>> (regval2_AGEX[4:0]);
+    `SRAI_I:
+      aluout_AGEX = (regval1_AGEX) >>> sxt_imm_AGEX;
+    `SRL_I:
+      aluout_AGEX = (regval1_AGEX) >> (regval2_AGEX[4:0]);
+    `SRLI_I:
+      aluout_AGEX = (regval1_AGEX) >> sxt_imm_AGEX;
+    `SLL_I:
+      aluout_AGEX = (regval1_AGEX) << (regval2_AGEX[4:0]);
+    `SLLI_I:
+      aluout_AGEX = (regval1_AGEX) << sxt_imm_AGEX;
     `SLT_I:
       aluout_AGEX = (s_regval1_AGEX < s_regval2_AGEX) ? 1 : 0;
     `SLTU_I:

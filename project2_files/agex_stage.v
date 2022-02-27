@@ -80,12 +80,26 @@ module AGEX_STAGE(
   always @ (*) begin
 
   case (op_I_AGEX)
+    `XOR_I:
+      aluout_AGEX = regval1_AGEX ^ regval2_AGEX;
+    `AND_I:
+      aluout_AGEX = regval1_AGEX & regval2_AGEX;
+    `OR_I:  
+      aluout_AGEX = regval1_AGEX | regval2_AGEX;
     `SUB_I:
       aluout_AGEX = regval1_AGEX - regval2_AGEX; 
     `ADD_I: 
       aluout_AGEX = regval1_AGEX + regval2_AGEX; 
     `ADDI_I:
       aluout_AGEX = regval1_AGEX + sxt_imm_AGEX; 
+    `MUL_I:
+      aluout_AGEX= regval1_AGEX * regval2_AGEX;
+    `ANDI_I:
+      aluout_AGEX = regval1_AGEX & sxt_imm_AGEX;
+    `ORI_I:
+      aluout_AGEX = regval1_AGEX | sxt_imm_AGEX;
+    `XORI_I:
+      aluout_AGEX = regval1_AGEX ^ sxt_imm_AGEX;
     `AUIPC_I:
       aluout_AGEX = PC_AGEX + sxt_imm_AGEX;
     `BEQ_I:

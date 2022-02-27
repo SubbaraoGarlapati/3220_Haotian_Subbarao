@@ -40,8 +40,10 @@ module AGEX_STAGE(
 
   wire signed [`DBITS-1:0] s_regval1_AGEX;
   wire signed [`DBITS-1:0] s_regval2_AGEX;
+  wire signed [`DBITS-1:0] s_sxt_imm_AGEX;
   assign s_regval1_AGEX = regval1_AGEX;
   assign s_regval2_AGEX = regval2_AGEX;
+  assign s_sxt_imm_AGEX = sxt_imm_AGEX;
   // signed comparison
   // wire s_less;
   // assign s_less = (s_regval1_AGEX < s_regval2_AGEX);
@@ -80,6 +82,14 @@ module AGEX_STAGE(
   always @ (*) begin
 
   case (op_I_AGEX)
+    `SLT_I:
+      aluout_AGEX = (s_regval1_AGEX < s_regval2_AGEX) ? 1 : 0;
+    `SLTU_I:
+      aluout_AGEX = (regval1_AGEX < regval2_AGEX) ? 1 : 0;
+    `SLTI_I:
+      aluout_AGEX = (s_regval1_AGEX < s_sxt_imm_AGEX) ? 1 : 0;
+    `SLTIU_I:
+      aluout_AGEX = (regval1_AGEX < sxt_imm_AGEX) ? 1 : 0;
     `XOR_I:
       aluout_AGEX = regval1_AGEX ^ regval2_AGEX;
     `AND_I:

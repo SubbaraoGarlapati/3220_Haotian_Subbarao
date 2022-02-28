@@ -35,7 +35,7 @@ VM_PREFIX = Vproject2_frame
 VM_MODPREFIX = Vproject2_frame
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
-	-DVCD_OUTPUT -DDPRINTF \
+	-DIDMEMINITFILE=/Users/Cody/Documents/GitHub/3220_Haotian_Subbarao/project2_files/test/part3/xori.mem -DVCD_OUTPUT -DDPRINTF \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \

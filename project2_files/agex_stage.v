@@ -98,9 +98,9 @@ module AGEX_STAGE(
         aluout_AGEX = regval1_AGEX + sxt_imm_AGEX;
       end
     `SRA_I:
-      aluout_AGEX = (regval1_AGEX) >>> (regval2_AGEX[4:0]);
+      aluout_AGEX = (s_regval1_AGEX) >>> (regval2_AGEX[4:0]);
     `SRAI_I:
-      aluout_AGEX = (regval1_AGEX) >>> sxt_imm_AGEX;
+      aluout_AGEX = (s_regval1_AGEX) >>> sxt_imm_AGEX;
     `SRL_I:
       aluout_AGEX = (regval1_AGEX) >> (regval2_AGEX[4:0]);
     `SRLI_I:

@@ -17,7 +17,7 @@
 // address space is m 0x00000000 to 0x000fffff
   // [NOTICE] please note that both imem and dmem use the SAME "IDMEMINITFILE".
   // you need to change this line to change which test file to read 
-  `define IDMEMINITFILE "test/part2/auipc.mem"
+  `define IDMEMINITFILE "/home/subbarao/Documents/CS3220/3220_Haotian_Subbarao/project2_files/test/part3/xor.mem"
   `define IMEMADDRBITS  16
   `define IMEMWORDBITS  2
   `define IMEMWORDS	  (1 << (`IMEMADDRBITS - `IMEMWORDBITS))
@@ -88,6 +88,7 @@
   `define U_immediate 3
   `define S_immediate 4 
   `define B_immediate 5  
+  `define SRAI_immediate 6
 
 
   `define CSRR_OPCODE 7'b1110011 
@@ -199,7 +200,7 @@
  `define FE_latch_WIDTH  (`INSTBITS+`DBITS+`DBITS+ `DBITS+ `BUS_CANARY_WIDTH)
   `define DE_latch_WIDTH  (`INSTBITS+`DBITS+`DBITS+ `IOPBITS + `DBITS+ `DBITS+ `DBITS +  `DBITS + `REGNOBITS + 1 + `TYPENOBITS + `BUS_CANARY_WIDTH)
 
-  `define AGEX_latch_WIDTH   (`INSTBITS+`DBITS+ `IOPBITS + `DBITS+  `DBITS + `REGNOBITS + 1 + `TYPENOBITS + `BUS_CANARY_WIDTH)
+  `define AGEX_latch_WIDTH   (`INSTBITS+`DBITS+ `IOPBITS + `DBITS+  `DBITS + `REGNOBITS + 1 + `TYPENOBITS + 1 + `DBITS + `BUS_CANARY_WIDTH)
   `define MEM_latch_WIDTH    (`INSTBITS+`DBITS+ `IOPBITS + `DBITS+   `DBITS + `REGNOBITS + 1  + `TYPENOBITS + `BUS_CANARY_WIDTH) 
 
   `define from_DE_to_FE_WIDTH  1 

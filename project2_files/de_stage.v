@@ -150,10 +150,14 @@ always @(*) begin
           type_immediate_DE = `I_immediate;
           end 
 
-    else if ((op_I_DE ==  `SRAI_I ) || 
-     (op_I_DE == `SRLI_I) || 
+    else if ((op_I_DE == `SRLI_I) || 
       (op_I_DE == `SLLI_I)) 
         type_I_DE = `I_Type; 
+    else if (op_I_DE == `SRAI_I)
+      begin
+        type_I_DE = `I_Type; 
+        type_immediate_DE = `SRAI_immediate;
+      end
 
     else if ((op_I_DE ==  `LUI_I) || 
       (op_I_DE == `AUIPC_I )) 
@@ -210,6 +214,8 @@ always @(*) begin
    `J_immediate: 
     sxt_imm_DE = {{12{inst_DE[31]}}, inst_DE[19:12], inst_DE[20], inst_DE[30:25], inst_DE[24:21], 1'b0}; 
   
+    `SRAI_immediate:
+    sxt_imm_DE = {27'b0, inst_DE[24:20]};
    default:
     sxt_imm_DE = 32'b0; 
   endcase  

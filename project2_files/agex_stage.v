@@ -7,6 +7,7 @@ module AGEX_STAGE(
   input [`from_MEM_to_AGEX_WIDTH-1:0] from_MEM_to_AGEX,    
   input [`from_WB_to_AGEX_WIDTH-1:0] from_WB_to_AGEX,   
   input [`DE_latch_WIDTH-1:0] from_DE_latch,
+  input [`from_FE_to_AGEX_WIDTH-1:0] from_FE_to_AGEX,
   output[`AGEX_latch_WIDTH-1:0] AGEX_latch_out,
   output[`from_AGEX_to_FE_WIDTH-1:0] from_AGEX_to_FE,
   output[`from_AGEX_to_DE_WIDTH-1:0] from_AGEX_to_DE
@@ -39,6 +40,7 @@ module AGEX_STAGE(
   wire [`PTINDEXBITS-1:0] memaddr_pt_AGEX;
   wire [`BTBINDEXBITS-1:0] memaddr_btb_AGEX;
 
+  assign {memaddr_pt_AGEX, memaddr_btb_AGEX} = from_FE_to_AGEX;
   //read value for bhr is just the value of bhr because there's no index
   //read value for pattern table and branch target buffer
   wire [`BHRENTRYBITS-1:0] rd_val_bhr_AGEX;
@@ -48,6 +50,7 @@ module AGEX_STAGE(
   assign rd_val_bhr_AGEX = bhr_AGEX;
   assign rd_val_pt_AGEX = pt_AGEX[memaddr_pt_AGEX];
   assign rd_val_btb_AGEX = btb_AGEX[memaddr_btb_AGEX];
+
 
 
  // **TODO: Complete the rest of the pipeline 

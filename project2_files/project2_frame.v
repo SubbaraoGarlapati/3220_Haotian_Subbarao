@@ -9,6 +9,8 @@ module project2_frame(
   reg [`DBITS-1:0] cycle_count; /* for debugging purpose */ 
 
   /* wires to connect between pipeline stages */ 
+
+  wire [`from_FE_to_AGEX_WIDTH-1:0] from_FE_to_AGEX;
   
   wire [`FE_latch_WIDTH-1:0] FE_latch_out; 
   wire [`DE_latch_WIDTH-1:0] DE_latch_out; 
@@ -40,7 +42,8 @@ FE_STAGE my_FE_stage(
     .from_AGEX_to_FE(from_AGEX_to_FE),
     .from_MEM_to_FE(from_MEM_to_FE),
     .from_WB_to_FE(from_WB_to_FE),
-    .FE_latch_out(FE_latch_out)); 
+    .FE_latch_out(FE_latch_out),
+    .from_FE_to_AGEX(from_FE_to_AGEX)); 
                      
 DE_STAGE my_DE_stage(
   .clk(clk),
@@ -59,6 +62,7 @@ AGEX_STAGE my_AGEX_stage(
   .from_MEM_to_AGEX(from_MEM_to_AGEX),    
   .from_WB_to_AGEX(from_WB_to_AGEX),   
   .from_DE_latch(DE_latch_out),
+  .from_FE_to_AGEX(from_FE_to_AGEX),
   .AGEX_latch_out(AGEX_latch_out),
   .from_AGEX_to_FE(from_AGEX_to_FE),
   .from_AGEX_to_DE(from_AGEX_to_DE)

@@ -8,7 +8,8 @@ module FE_STAGE(
   input [`from_AGEX_to_FE_WIDTH-1:0] from_AGEX_to_FE,   
   input [`from_MEM_to_FE_WIDTH-1:0] from_MEM_to_FE,   
   input [`from_WB_to_FE_WIDTH-1:0] from_WB_to_FE, 
-  output[`FE_latch_WIDTH-1:0] FE_latch_out
+  output[`FE_latch_WIDTH-1:0] FE_latch_out,
+  output [`from_FE_to_AGEX_WIDTH-1:0] from_FE_to_AGEX
 );
 
 
@@ -72,7 +73,12 @@ module FE_STAGE(
   //BRANCH LOGIC
   wire br_cond_AGEX_in_FE;
   wire [`DBITS-1:0] newpc_AGEX;
+
+  wire [`PTINDEXBITS-1:0] memaddr_pt_FE;
+  wire [`BTBINDEXBITS-1:0] memaddr_btb_FE;
   
+  assign from_FE_to_AGEX = {memaddr_pt_FE, memaddr_btb_FE};
+
   assign {br_cond_AGEX_in_FE, newpc_AGEX, rd_val_bhr_FE, rd_val_pt_FE, rd_val_btb_FE} = from_AGEX_to_FE;
 
   wire [`BHRENTRYBITS-1:0] rd_val_bhr_FE;

@@ -23,7 +23,7 @@ double sc_time_stamp() {
   return timestamp;
 }
 
-#define RUN_CYCLES 1000
+#define RUN_CYCLES 10000
 
 #define CLOCK_PERIOD 10
 
@@ -56,6 +56,7 @@ int main(int argc, char** argv, char** env) {
 
     // Simulate until $finish
     // while (!Verilated::gotFinish()) {
+    static int last_print_inst_count_WB = 0; 
 
     while (timestamp < RUN_CYCLES) {      
         if ((timestamp % CLOCK_PERIOD)) 
@@ -70,11 +71,11 @@ int main(int argc, char** argv, char** env) {
         // Evaluate model
         prj->eval();
 
-    #ifdef DPRINTF 
+    // #ifdef DPRINTF 
     // verilator allows to access verilator public data structure 
 
     /* writeback stage*/ 
-        static int last_print_inst_count_WB = 0; 
+        // static int last_print_inst_count_WB = 0; 
         int inst_count_WB = (int)prj->project2_frame->my_WB_stage->WB_counters[5]; 
         if (inst_count_WB > last_print_inst_count_WB)  { 
             std::cout <<"[" << (int)(timestamp) << "] "; 
@@ -93,7 +94,7 @@ int main(int argc, char** argv, char** env) {
         last_print_inst_count_WB = inst_count_WB; 
         }
 
-    #endif 
+    // #endif 
 
 
     #ifdef VCD_OUTPUT
@@ -116,10 +117,16 @@ int main(int argc, char** argv, char** env) {
     delete prj;
 
     // TinyRV1 test Pass/Fail status
-    if(1 == exitcode)
-        std::cout<<"Passed!"<<std::endl;
-    else
-        std::cout<<"Failed. exitcode: "<<exitcode<<std::endl;
+    // if(1 == exitcode)
+    //     std::cout<<"Passed!"<<std::endl;
+    // else
+    //     std::cout<<"Failed. exitcode: "<<exitcode<<std::endl;
+
+
+    if(1 == exitcode) 
+        std::cout<<"Passed! cycle_count:" << last_print_inst_count_WB << std::endl; 
+    else 
+        std::cout<<"Failed. exitcode: "<<exitcode<<std::endl; 
 
     // Fin
     exit(0);

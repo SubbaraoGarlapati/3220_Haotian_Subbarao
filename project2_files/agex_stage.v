@@ -28,7 +28,28 @@ module AGEX_STAGE(
 
 
   wire[`BUS_CANARY_WIDTH-1:0] bus_canary_AGEX; 
+
+  //BRANCH LOGIC
+  //declare branch history register, pattern table, and branch target buffer
+  reg [`BHRENTRYBITS-1:0] bhr_AGEX;
+  reg [`PTENTRYBITS-1:0] pt_AGEX [0:`PTENTRIES-1];
+  reg [`BTBENTRYBITS-1:0] btb_AGEX [0:`BTBENTRIES-1];
  
+  //memory addresses for pattern table and branch target buffer
+  wire [`PTINDEXBITS-1:0] memaddr_pt_AGEX;
+  wire [`BTBINDEXBITS-1:0] memaddr_btb_AGEX;
+
+  //read value for bhr is just the value of bhr because there's no index
+  //read value for pattern table and branch target buffer
+  wire [`BHRENTRYBITS-1:0] rd_val_bhr_AGEX;
+  wire [`PTENTRYBITS-1:0] rd_val_pt_AGEX;
+  wire [`BTBENTRYBITS-1:0] rd_val_btb_AGEX;
+  
+  assign rd_val_bhr_AGEX = bhr_AGEX;
+  assign rd_val_pt_AGEX = pt_AGEX[memaddr_pt_AGEX];
+  assign rd_val_btb_AGEX = btb_AGEX[memaddr_btb_AGEX];
+
+
  // **TODO: Complete the rest of the pipeline 
  
   wire [`DBITS-1:0] regval1_AGEX; 
@@ -211,7 +232,7 @@ end
                                 bus_canary_AGEX     
                                  }; 
  
-  assign from_AGEX_to_FE = {br_cond_AGEX, newpc_AGEX};
+  assign from_AGEX_to_FE = {br_cond_AGEX, newpc_AGEX, rd_val_bhr_AGEX, rd_val_pt_AGEX, rd_val_btb_AGEX};
   assign from_AGEX_to_DE = {rd_AGEX, type_I_AGEX, br_cond_AGEX};
 
   always @ (posedge clk or posedge reset) begin

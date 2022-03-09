@@ -23,7 +23,15 @@
   `define IMEMWORDS	  (1 << (`IMEMADDRBITS - `IMEMWORDBITS))
   `define DMEMADDRBITS  16
   `define DMEMWORDBITS  2
-  `define DMEMWORDS	  (1 << (`DMEMADDRBITS - `DMEMWORDBITS))  
+  `define DMEMWORDS	  (1 << (`DMEMADDRBITS - `DMEMWORDBITS)) 
+  `define TAGBITS 26 
+  `define BHRENTRYBITS 8
+  `define PTENTRYBITS 2
+  `define BTBENTRYBITS (`TAGBITS+`DBITS)
+  `define PTENTRIES 256
+  `define BTBENTRIES 16
+  `define PTINDEXBITS 8
+  `define BTBINDEXBITS 4
    
   `define CSRNOBITS 4
   `define CSR_ID_BIT_MASK 12'hF // this should match with CSRNOBITS 
@@ -204,7 +212,7 @@
   `define MEM_latch_WIDTH    (`INSTBITS+`DBITS+ `IOPBITS + `DBITS+   `DBITS + `REGNOBITS + 1  + `TYPENOBITS + `BUS_CANARY_WIDTH) 
 
   `define from_DE_to_FE_WIDTH  1 
-  `define from_AGEX_to_FE_WIDTH (1 + `DBITS)
+  `define from_AGEX_to_FE_WIDTH (1 + `DBITS + `BHRENTRYBITS + `PTENTRYBITS + `BTBENTRYBITS)
   `define from_MEM_to_FE_WIDTH 1
   `define from_WB_to_FE_WIDTH 1
 

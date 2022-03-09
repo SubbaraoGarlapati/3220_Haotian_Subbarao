@@ -69,10 +69,18 @@ module FE_STAGE(
 
   // **TODO: Complete the rest of the pipeline 
    //assign stall_pipe_FE = 0;  // you need to modify this line for your design 
+  //BRANCH LOGIC
   wire br_cond_AGEX_in_FE;
   wire [`DBITS-1:0] newpc_AGEX;
-  assign {br_cond_AGEX_in_FE, newpc_AGEX} = from_AGEX_to_FE;
   
+  assign {br_cond_AGEX_in_FE, newpc_AGEX, rd_val_bhr_FE, rd_val_pt_FE, rd_val_btb_FE} = from_AGEX_to_FE;
+
+  wire [`BHRENTRYBITS-1:0] rd_val_bhr_FE;
+  wire [`PTENTRYBITS-1:0] rd_val_pt_FE;
+  wire [`BTBENTRYBITS-1:0] rd_val_btb_FE;
+
+
+
   assign stall_pipe_FE = from_DE_to_FE;
 
   always @ (posedge clk or posedge reset) begin

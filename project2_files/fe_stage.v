@@ -79,11 +79,12 @@ module FE_STAGE(
   
   assign from_FE_to_AGEX = {memaddr_pt_FE, memaddr_btb_FE};
 
-  assign {br_cond_AGEX_in_FE, newpc_AGEX, rd_val_bhr_FE, rd_val_pt_FE, rd_val_btb_FE} = from_AGEX_to_FE;
+  assign {br_cond_AGEX_in_FE, newpc_AGEX, rd_val_bhr_FE, rd_val_pt_FE, rd_val_btb_tag_FE, rd_val_btb_value_FE} = from_AGEX_to_FE;
 
   wire [`BHRENTRYBITS-1:0] rd_val_bhr_FE;
   wire [`PTENTRYBITS-1:0] rd_val_pt_FE;
-  wire [`BTBENTRYBITS-1:0] rd_val_btb_FE;
+  wire [`TAGBITS-1:0] rd_val_btb_tag_FE;
+  wire [`DBITS-1:0] rd_val_btb_value_FE;
 
 
 

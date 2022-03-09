@@ -27,7 +27,6 @@
   `define TAGBITS 26 
   `define BHRENTRYBITS 8
   `define PTENTRYBITS 2
-  `define BTBENTRYBITS (`TAGBITS+`DBITS)
   `define PTENTRIES 256
   `define BTBENTRIES 16
   `define PTINDEXBITS 8
@@ -214,7 +213,7 @@
   `define from_FE_to_AGEX_WIDTH (`PTINDEXBITS + `BTBINDEXBITS)
 
   `define from_DE_to_FE_WIDTH  1 
-  `define from_AGEX_to_FE_WIDTH (1 + `DBITS + `BHRENTRYBITS + `PTENTRYBITS + `BTBENTRYBITS)
+  `define from_AGEX_to_FE_WIDTH (1 + `DBITS + `BHRENTRYBITS + `PTENTRYBITS + `TAGBITS + `DBITS)
   `define from_MEM_to_FE_WIDTH 1
   `define from_WB_to_FE_WIDTH 1
 

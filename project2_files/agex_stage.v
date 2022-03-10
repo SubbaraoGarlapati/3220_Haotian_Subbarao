@@ -27,6 +27,7 @@ module AGEX_STAGE(
   wire [`DBITS-1:0] pcplus_AGEX; 
   wire [`IOPBITS-1:0] op_I_AGEX;
   reg br_cond_AGEX; // 1 means a branch condition is satisified. 0 means a branch condition is not satisifed 
+  reg actual_br_direction;
 
 
   wire[`BUS_CANARY_WIDTH-1:0] bus_canary_AGEX; 
@@ -89,27 +90,40 @@ module AGEX_STAGE(
   // assign less = (regval1_AGEX < regval2_AGEX);
 
   always @ (*) begin
-    case (op_I_AGEX)
-      `BEQ_I : 
-        begin br_cond_AGEX = 1; // write correct code to check the branch condition. 
-          br_cond_AGEX = (regval1_AGEX == regval2_AGEX) ? 1 : 0;
-        end
-      `BNE_I:
-        br_cond_AGEX = (regval1_AGEX == regval2_AGEX) ? 0 : 1;
-      `BLT_I : 
-        br_cond_AGEX = (s_regval1_AGEX < s_regval2_AGEX) ? 1 : 0;
-      `BGE_I : 
-        br_cond_AGEX = (s_regval1_AGEX >= s_regval2_AGEX) ? 1 : 0;
-      `BLTU_I: 
-        br_cond_AGEX = (regval1_AGEX < regval2_AGEX) ? 1 : 0;
-      `BGEU_I :
-        br_cond_AGEX = (regval1_AGEX >= regval2_AGEX) ? 1 : 0;
-      `JAL_I:
+
+    begin
+      case (op_I_AGEX)
+        `BEQ_I : 
+          begin actual_br_direction = 1; // write correct code to check the branch condition. 
+            actual_br_direction = (regval1_AGEX == regval2_AGEX) ? 1 : 0;
+          end
+        `BNE_I:
+          actual_br_direction = (regval1_AGEX == regval2_AGEX) ? 0 : 1;
+        `BLT_I : 
+          actual_br_direction = (s_regval1_AGEX < s_regval2_AGEX) ? 1 : 0;
+        `BGE_I : 
+          actual_br_direction = (s_regval1_AGEX >= s_regval2_AGEX) ? 1 : 0;
+        `BLTU_I: 
+          actual_br_direction = (regval1_AGEX < regval2_AGEX) ? 1 : 0;
+        `BGEU_I :
+          actual_br_direction = (regval1_AGEX >= regval2_AGEX) ? 1 : 0;
+        `JAL_I:
+          actual_br_direction = 1;
+        `JALR_I:
+          actual_br_direction = 1;
+        default : actual_br_direction = 1'b0;
+      endcase
+    end
+    if (is_BTB_hit_AGEX) begin
+      if (guessed_br_direction_AGEX != actual_br_direction || guessed_br_address_AGEX != newpc_AGEX) begin
         br_cond_AGEX = 1;
-      `JALR_I:
-        br_cond_AGEX = 1;
-      default : br_cond_AGEX = 1'b0;
-    endcase
+      end else begin
+        br_cond_AGEX = 0;
+      end;
+    end
+    else begin
+      br_cond_AGEX = actual_br_direction;
+    end
   end
 
   reg [`DBITS-1:0] aluout_AGEX; 

@@ -10,7 +10,8 @@ module AGEX_STAGE(
   input [`from_FE_to_AGEX_WIDTH-1:0] from_FE_to_AGEX,
   output[`AGEX_latch_WIDTH-1:0] AGEX_latch_out,
   output[`from_AGEX_to_FE_WIDTH-1:0] from_AGEX_to_FE,
-  output[`from_AGEX_to_DE_WIDTH-1:0] from_AGEX_to_DE
+  output[`from_AGEX_to_DE_WIDTH-1:0] from_AGEX_to_DE,
+  output[`bhr_from_AGEX_to_FE_WIDTH-1:0] bhr_from_AGEX_to_FE
 );
 
   reg [`AGEX_latch_WIDTH-1:0] AGEX_latch; 
@@ -52,11 +53,19 @@ module AGEX_STAGE(
 
   
   assign rd_val_bhr_AGEX = bhr_AGEX;
+  
   assign rd_val_pt_AGEX = pt_AGEX[memaddr_pt_AGEX];
   assign rd_val_btb_tag_AGEX = btb_tag_AGEX[memaddr_btb_AGEX];
   assign rd_val_btb_value_AGEX = btb_value_AGEX[memaddr_btb_AGEX];
 
+  assign bhr_from_AGEX_to_FE = rd_val_bhr_AGEX;
 
+  //Passed in variables from FE->DE->AGEX
+  wire is_BTB_hit_AGEX;
+  wire guessed_br_direction_AGEX;
+  wire [`DBITS-1:0] guessed_br_address_AGEX;
+  wire [`PTINDEXBITS-1:0] memaddr_pt_AGEX;
+  wire [`BTBINDEXBITS-1:0] memaddr_btb_DE;
  // **TODO: Complete the rest of the pipeline 
  
   wire [`DBITS-1:0] regval1_AGEX; 
@@ -219,6 +228,11 @@ end
                                   rd_AGEX, 
                                   wr_reg_AGEX, 
                                   type_I_AGEX,
+                                  is_BTB_hit_AGEX,
+                                  guessed_br_direction_AGEX,
+                                  guessed_br_address_AGEX,
+                                  memaddr_pt_AGEX,
+                                  memaddr_btb_AGEX, 
                                           // more signals might need
                                   bus_canary_AGEX
                                   } = from_DE_latch; 
@@ -239,7 +253,7 @@ end
                                 bus_canary_AGEX     
                                  }; 
  
-  assign from_AGEX_to_FE = {br_cond_AGEX, newpc_AGEX, rd_val_bhr_AGEX, rd_val_pt_AGEX, rd_val_btb_tag_AGEX, rd_val_btb_value_AGEX};
+  assign from_AGEX_to_FE = {br_cond_AGEX, newpc_AGEX, rd_val_pt_AGEX, rd_val_btb_tag_AGEX, rd_val_btb_value_AGEX};
   assign from_AGEX_to_DE = {rd_AGEX, type_I_AGEX, br_cond_AGEX};
 
   always @ (posedge clk or posedge reset) begin

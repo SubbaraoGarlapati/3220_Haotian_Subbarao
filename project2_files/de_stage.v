@@ -24,6 +24,11 @@ module DE_STAGE(
   wire [`DBITS-1:0] PC_DE;
   wire [`DBITS-1:0] pcplus_DE; 
   wire [`DBITS-1:0] inst_count_DE; 
+  wire is_BTB_hit_DE;
+  wire guessed_br_direction_DE;
+  wire [`DBITS-1:0] guessed_br_address_DE;
+  wire [`PTINDEXBITS-1:0] memaddr_pt_DE;
+  wire [`BTBINDEXBITS-1:0] memaddr_btb_DE; 
   wire[`DE_latch_WIDTH-1:0] DE_latch_contents; 
   wire[`BUS_CANARY_WIDTH-1:0] bus_canary_DE; 
  
@@ -352,8 +357,13 @@ assign regval2_DE = regs[rs2_DE];
             inst_DE,
             PC_DE, 
             pcplus_DE,
-            inst_count_DE, 
-            bus_canary_DE 
+            inst_count_DE,
+            is_BTB_hit_DE,
+            guessed_br_direction_DE,
+            guessed_br_address_DE,
+            memaddr_pt_DE,
+            memaddr_btb_DE, 
+            bus_canary_DE
             }  = from_FE_latch;  // based on the contents of the latch, you can decode the content 
 
 
@@ -372,6 +382,11 @@ assign regval2_DE = regs[rs2_DE];
                                   rd_DE,   
                                   wr_reg_DE, 
                                   type_I_DE,
+                                  is_BTB_hit_DE,
+                                  guessed_br_direction_DE,
+                                  guessed_br_address_DE,
+                                  memaddr_pt_DE,
+                                  memaddr_btb_DE,
                                   // more signals might need
                                    bus_canary_DE 
                                   }; 

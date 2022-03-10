@@ -11,7 +11,8 @@ module project2_frame(
   /* wires to connect between pipeline stages */ 
 
   wire [`from_FE_to_AGEX_WIDTH-1:0] from_FE_to_AGEX;
-  
+  wire [`bhr_from_AGEX_to_FE_WIDTH-1:0] bhr_from_AGEX_to_FE;
+
   wire [`FE_latch_WIDTH-1:0] FE_latch_out; 
   wire [`DE_latch_WIDTH-1:0] DE_latch_out; 
   wire [`AGEX_latch_WIDTH-1:0] AGEX_latch_out; 
@@ -42,6 +43,7 @@ FE_STAGE my_FE_stage(
     .from_AGEX_to_FE(from_AGEX_to_FE),
     .from_MEM_to_FE(from_MEM_to_FE),
     .from_WB_to_FE(from_WB_to_FE),
+    .bhr_from_AGEX_to_FE(bhr_from_AGEX_to_FE),
     .FE_latch_out(FE_latch_out),
     .from_FE_to_AGEX(from_FE_to_AGEX)); 
                      
@@ -65,7 +67,8 @@ AGEX_STAGE my_AGEX_stage(
   .from_FE_to_AGEX(from_FE_to_AGEX),
   .AGEX_latch_out(AGEX_latch_out),
   .from_AGEX_to_FE(from_AGEX_to_FE),
-  .from_AGEX_to_DE(from_AGEX_to_DE)
+  .from_AGEX_to_DE(from_AGEX_to_DE),
+  .bhr_from_AGEX_to_FE(bhr_from_AGEX_to_FE)
 );
 
 MEM_STAGE my_MEM_stage(

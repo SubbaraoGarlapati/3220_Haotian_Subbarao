@@ -298,10 +298,6 @@ assign regval2_DE = regs[rs2_DE];
   wire [`DBITS-1:0] regval_WB;  // the contents to be written in the register file (or CSR )
   wire [`CSRNOBITS-1:0] wcsrno_WB;  // desitnation CSR register ID 
   wire wr_csr_WB; // is this instruction writing into CSR ? 
-
-  // signals come from WB stage for register WB 
-  assign { wr_reg_WB, wregno_WB, regval_WB, wcsrno_WB, wr_csr_WB, rd_WB, type_I_WB} = from_WB_to_DE;  
-  
   
   assign {rd_AGEX, type_I_AGEX, br_cond_AGEX_in_DE} = from_AGEX_to_DE;
   assign {rd_MEM, type_I_MEM} = from_MEM_to_DE;
@@ -314,14 +310,21 @@ assign regval2_DE = regs[rs2_DE];
   wire [`TYPENOBITS-1:0] type_I_WB;
   wire br_cond_AGEX_in_DE;
 
+  // signals come from WB stage for register WB 
+  assign { wr_reg_WB, wregno_WB, regval_WB, wcsrno_WB, wr_csr_WB, rd_WB, type_I_WB} = from_WB_to_DE;  
+
   // assign pipeline_stall_DE = (((rs1_read_DE == 1) && (rs1_DE == rd_AGEX || rs1_DE == rd_MEM || rs1_DE == rd_WB))
   //     || ((rs2_read_DE == 1) && (rs2_DE == rd_AGEX || rs2_DE == rd_MEM || rs2_DE == rd_WB))) 
   //     ? 1 : 0;
 
+  reg is_type_I_AGEX_Valid;
+  reg is_type_I_MEM_Valid;
+  reg is_type_I_WB_Valid;
+
   always @(*) begin
-    reg is_type_I_AGEX_Valid = (type_I_AGEX == `R_Type || type_I_AGEX == `I_Type || type_I_AGEX == `U_Type) ? 1 : 0;
-    reg is_type_I_MEM_Valid = (type_I_MEM == `R_Type || type_I_MEM == `I_Type || type_I_MEM == `U_Type) ? 1 : 0;
-    reg is_type_I_WB_Valid = (type_I_WB == `R_Type || type_I_WB == `I_Type || type_I_WB == `U_Type) ? 1 : 0;
+    is_type_I_AGEX_Valid = (type_I_AGEX == `R_Type || type_I_AGEX == `I_Type || type_I_AGEX == `U_Type) ? 1 : 0;
+    is_type_I_MEM_Valid = (type_I_MEM == `R_Type || type_I_MEM == `I_Type || type_I_MEM == `U_Type) ? 1 : 0;
+    is_type_I_WB_Valid = (type_I_WB == `R_Type || type_I_WB == `I_Type || type_I_WB == `U_Type) ? 1 : 0;
 
     if (rs1_read_DE == 1) begin
       if ((rs1_DE == rd_AGEX && is_type_I_AGEX_Valid) || (rs1_DE == rd_MEM && is_type_I_MEM_Valid) || (rs1_DE == rd_WB && is_type_I_WB_Valid)) begin

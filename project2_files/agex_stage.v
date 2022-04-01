@@ -291,14 +291,16 @@ end
 
 //might need to be negedge
 //update bhr, pt, btb
+// wire pt_value_AGEX = pt_AGEX[memaddr_pt_AGEX];
+
   always @ (posedge clk) begin
     if (op_I_AGEX == `BEQ_I || op_I_AGEX == `BNE_I || op_I_AGEX == `BLT_I || op_I_AGEX == `BGE_I || op_I_AGEX == `BLTU_I || op_I_AGEX == `BGEU_I || op_I_AGEX == `JAL_I || op_I_AGEX == `JALR_I) begin
       bhr_AGEX = bhr_AGEX << 1 | {{7{1'b0}},actual_br_direction};
 
       if (actual_br_direction == 1 && pt_AGEX[memaddr_pt_AGEX] < 3) begin
-        pt_AGEX[memaddr_pt_AGEX]--;
+        pt_AGEX[memaddr_pt_AGEX] = rd_val_pt_AGEX - 1;
       end else if (actual_br_direction == 0 && pt_AGEX[memaddr_pt_AGEX] > 0) begin
-        pt_AGEX[memaddr_pt_AGEX]++;
+        pt_AGEX[memaddr_pt_AGEX] = rd_val_pt_AGEX + 1;
       end
       btb_tag_AGEX[memaddr_btb_AGEX] = PC_AGEX[31:6];
       btb_value_AGEX[memaddr_btb_AGEX] = newpc_AGEX;

@@ -103,7 +103,7 @@ int main(int argc, char** argv, char** env) {
         ++timestamp;
     }
 
-    int exitcode = (int)prj->project2_frame->my_WB_stage->last_WB_value[3];
+    int exitcode = (int)prj->project2_frame->my_WB_stage->last_WB_value[10];
 
     // Final model cleanup
     prj->final();

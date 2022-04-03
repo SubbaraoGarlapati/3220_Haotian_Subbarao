@@ -7,26 +7,67 @@
 
 #include "Vproject2_frame_project2_frame.h"
 
-VL_INLINE_OPT void Vproject2_frame_project2_frame___sequent__TOP__project2_frame__2(Vproject2_frame_project2_frame* vlSelf) {
+VL_INLINE_OPT void Vproject2_frame_project2_frame___sequent__TOP__project2_frame__3(Vproject2_frame_project2_frame* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vproject2_frame__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+      Vproject2_frame_project2_frame___sequent__TOP__project2_frame__2\n"); );
-    // Init
-    SData/*13:0*/ __Vdlyvdim0__my_MEM_stage__DOT__dmem__v0;
-    IData/*31:0*/ __Vdlyvval__my_MEM_stage__DOT__dmem__v0;
-    CData/*0:0*/ __Vdlyvset__my_MEM_stage__DOT__dmem__v0;
+    VL_DEBUG_IF(VL_DBG_MSGF("+      Vproject2_frame_project2_frame___sequent__TOP__project2_frame__3\n"); );
     // Body
-    __Vdlyvset__my_MEM_stage__DOT__dmem__v0 = 0U;
-    if (vlSelf->__PVT__my_MEM_stage__DOT__wr_mem_MEM) {
-        __Vdlyvval__my_MEM_stage__DOT__dmem__v0 = vlSelf->__PVT__my_MEM_stage__DOT__wr_val_MEM;
-        __Vdlyvset__my_MEM_stage__DOT__dmem__v0 = 1U;
-        __Vdlyvdim0__my_MEM_stage__DOT__dmem__v0 = 
-            (0x3fffU & (vlSelf->__PVT__my_MEM_stage__DOT__memaddr_MEM 
-                        >> 2U));
+    vlSelf->__Vdlyvset__my_MEM_stage__DOT__dmem__v0 = 0U;
+    if (((((((((0x1cU == (0x3fU & ((vlSelf->__PVT__my_DE_stage__DOT__DE_latch[6U] 
+                                    << 4U) | (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[5U] 
+                                              >> 0x1cU)))) 
+               | (0x1dU == (0x3fU & ((vlSelf->__PVT__my_DE_stage__DOT__DE_latch[6U] 
+                                      << 4U) | (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[5U] 
+                                                >> 0x1cU))))) 
+              | (0x1eU == (0x3fU & ((vlSelf->__PVT__my_DE_stage__DOT__DE_latch[6U] 
+                                     << 4U) | (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[5U] 
+                                               >> 0x1cU))))) 
+             | (0x1fU == (0x3fU & ((vlSelf->__PVT__my_DE_stage__DOT__DE_latch[6U] 
+                                    << 4U) | (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[5U] 
+                                              >> 0x1cU))))) 
+            | (0x20U == (0x3fU & ((vlSelf->__PVT__my_DE_stage__DOT__DE_latch[6U] 
+                                   << 4U) | (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[5U] 
+                                             >> 0x1cU))))) 
+           | (0x21U == (0x3fU & ((vlSelf->__PVT__my_DE_stage__DOT__DE_latch[6U] 
+                                  << 4U) | (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[5U] 
+                                            >> 0x1cU))))) 
+          | (0x19U == (0x3fU & ((vlSelf->__PVT__my_DE_stage__DOT__DE_latch[6U] 
+                                 << 4U) | (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[5U] 
+                                           >> 0x1cU))))) 
+         | (0x1bU == (0x3fU & ((vlSelf->__PVT__my_DE_stage__DOT__DE_latch[6U] 
+                                << 4U) | (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[5U] 
+                                          >> 0x1cU)))))) {
+        vlSelf->__PVT__my_AGEX_stage__DOT__btb_tag_AGEX[vlSelf->__PVT__my_AGEX_stage__DOT__memaddr_btb_AGEX] 
+            = (0x3ffffffU & ((vlSelf->__PVT__my_DE_stage__DOT__DE_latch[8U] 
+                              << 0x18U) | (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[7U] 
+                                           >> 8U)));
+        vlSelf->__PVT__my_AGEX_stage__DOT__btb_value_AGEX[vlSelf->__PVT__my_AGEX_stage__DOT__memaddr_btb_AGEX] 
+            = vlSelf->__PVT__my_AGEX_stage__DOT__newpc_AGEX;
+        if (((IData)(vlSelf->__PVT__my_AGEX_stage__DOT__actual_br_direction) 
+             & (3U > vlSelf->__PVT__my_AGEX_stage__DOT__pt_AGEX
+                [vlSelf->__PVT__my_AGEX_stage__DOT__memaddr_pt_AGEX]))) {
+            vlSelf->__PVT__my_AGEX_stage__DOT__pt_AGEX[vlSelf->__PVT__my_AGEX_stage__DOT__memaddr_pt_AGEX] 
+                = (3U & ((IData)(vlSelf->__PVT__my_AGEX_stage__DOT__rd_val_pt_AGEX) 
+                         - (IData)(1U)));
+        } else if (((~ (IData)(vlSelf->__PVT__my_AGEX_stage__DOT__actual_br_direction)) 
+                    & (0U < vlSelf->__PVT__my_AGEX_stage__DOT__pt_AGEX
+                       [vlSelf->__PVT__my_AGEX_stage__DOT__memaddr_pt_AGEX]))) {
+            vlSelf->__PVT__my_AGEX_stage__DOT__pt_AGEX[vlSelf->__PVT__my_AGEX_stage__DOT__memaddr_pt_AGEX] 
+                = (3U & ((IData)(1U) + (IData)(vlSelf->__PVT__my_AGEX_stage__DOT__rd_val_pt_AGEX)));
+        }
+        vlSelf->__PVT__my_AGEX_stage__DOT__bhr_AGEX 
+            = (0xffU & (((IData)(vlSelf->__PVT__my_AGEX_stage__DOT__bhr_AGEX) 
+                         << 1U) | (IData)(vlSelf->__PVT__my_AGEX_stage__DOT__actual_br_direction)));
     }
-    if (__Vdlyvset__my_MEM_stage__DOT__dmem__v0) {
-        vlSelf->__PVT__my_MEM_stage__DOT__dmem[__Vdlyvdim0__my_MEM_stage__DOT__dmem__v0] 
-            = __Vdlyvval__my_MEM_stage__DOT__dmem__v0;
+    if ((0x10U & vlSelf->__PVT__my_AGEX_stage__DOT__AGEX_latch[1U])) {
+        vlSelf->__Vdlyvval__my_MEM_stage__DOT__dmem__v0 
+            = ((vlSelf->__PVT__my_AGEX_stage__DOT__AGEX_latch[1U] 
+                << 0x1cU) | (vlSelf->__PVT__my_AGEX_stage__DOT__AGEX_latch[0U] 
+                             >> 4U));
+        vlSelf->__Vdlyvset__my_MEM_stage__DOT__dmem__v0 = 1U;
+        vlSelf->__Vdlyvdim0__my_MEM_stage__DOT__dmem__v0 
+            = (0x3fffU & (vlSelf->__PVT__my_AGEX_stage__DOT__AGEX_latch[1U] 
+                          >> 0x11U));
     }
 }
 
@@ -34,6 +75,17 @@ VL_INLINE_OPT void Vproject2_frame_project2_frame___sequent__TOP__project2_frame
     if (false && vlSelf) {}  // Prevent unused
     Vproject2_frame__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+      Vproject2_frame_project2_frame___sequent__TOP__project2_frame__9\n"); );
+    // Body
+    if (vlSelf->__Vdlyvset__my_MEM_stage__DOT__dmem__v0) {
+        vlSelf->__PVT__my_MEM_stage__DOT__dmem[vlSelf->__Vdlyvdim0__my_MEM_stage__DOT__dmem__v0] 
+            = vlSelf->__Vdlyvval__my_MEM_stage__DOT__dmem__v0;
+    }
+}
+
+VL_INLINE_OPT void Vproject2_frame_project2_frame___sequent__TOP__project2_frame__10(Vproject2_frame_project2_frame* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    Vproject2_frame__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+      Vproject2_frame_project2_frame___sequent__TOP__project2_frame__10\n"); );
     // Body
     if (vlSelf->__Vdlyvset__my_DE_stage__DOT__regs__v0) {
         vlSelf->__PVT__my_DE_stage__DOT__regs[0U] = 0U;

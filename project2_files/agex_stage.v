@@ -11,7 +11,8 @@ module AGEX_STAGE(
   output[`AGEX_latch_WIDTH-1:0] AGEX_latch_out,
   output[`from_AGEX_to_FE_WIDTH-1:0] from_AGEX_to_FE,
   output[`from_AGEX_to_DE_WIDTH-1:0] from_AGEX_to_DE,
-  output[`bhr_from_AGEX_to_FE_WIDTH-1:0] bhr_from_AGEX_to_FE
+  output[`bhr_from_AGEX_to_FE_WIDTH-1:0] bhr_from_AGEX_to_FE,
+  output[`from_AGEX_to_WB_WIDTH-1:0] from_AGEX_to_WB
 );
 
   reg [`AGEX_latch_WIDTH-1:0] AGEX_latch; 
@@ -53,6 +54,8 @@ module AGEX_STAGE(
   wire [`DBITS-1:0] rd_val_btb_value_AGEX;
 
   
+
+  
   assign rd_val_bhr_AGEX = bhr_AGEX;
   
   assign rd_val_pt_AGEX = pt_AGEX[memaddr_pt_AGEX];
@@ -75,6 +78,11 @@ module AGEX_STAGE(
   wire [`REGNOBITS-1:0] rd_AGEX;   // rd ID 
   wire wr_reg_AGEX; 
   wire [`TYPENOBITS-1:0] type_I_AGEX;
+
+  reg [`DBITS-1:0] hit_prediction_AGEX;
+  reg [`DBITS-1:0] branch_count_AGEX;
+
+  //wire [`from_AGEX_to_WB_WIDTH-1:0] from_AGEX_to_WB; 
 
   wire signed [`DBITS-1:0] s_regval1_AGEX;
   wire signed [`DBITS-1:0] s_regval2_AGEX;
@@ -193,26 +201,63 @@ module AGEX_STAGE(
     `AUIPC_I:
       aluout_AGEX = PC_AGEX + sxt_imm_AGEX;
     `BEQ_I:
-      newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
-    `BNE_I:
-      newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+      begin
+      if(actual_br_direction)
+        newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+      else
+        newpc_AGEX = pcplus_AGEX;
+    end
+    `BNE_I: begin
+      if(actual_br_direction)
+        newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+      else
+        newpc_AGEX = pcplus_AGEX;
+    end
     `BLT_I:
-      newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+      begin
+      if(actual_br_direction)
+        newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+      else
+        newpc_AGEX = pcplus_AGEX;
+    end
     `BGE_I:
-      newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+      begin
+      if(actual_br_direction)
+        newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+      else
+        newpc_AGEX = pcplus_AGEX;
+    end
     `BLTU_I:
-      newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+      begin
+      if(actual_br_direction)
+        newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+      else
+        newpc_AGEX = pcplus_AGEX;
+    end
     `BGEU_I :
-      newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+      begin
+      if(actual_br_direction)
+        newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+      else
+        newpc_AGEX = pcplus_AGEX;
+    end
     `JAL_I:
       begin
         aluout_AGEX = pcplus_AGEX;
+        
+       if(actual_br_direction)
         newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+      else
+        newpc_AGEX = pcplus_AGEX;
       end
     `JALR_I:
       begin
         aluout_AGEX = pcplus_AGEX;
-        newpc_AGEX = (regval1_AGEX + sxt_imm_AGEX) & 32'hfffffffe;
+        if(actual_br_direction)
+          newpc_AGEX = (regval1_AGEX + sxt_imm_AGEX) & 32'hfffffffe;
+        else
+          newpc_AGEX = pcplus_AGEX;
+        //newpc_AGEX = (regval1_AGEX + sxt_imm_AGEX) & 32'hfffffffe;
       end
     `LUI_I:
       aluout_AGEX = sxt_imm_AGEX;
@@ -271,15 +316,19 @@ end
  
   assign from_AGEX_to_FE = {br_cond_AGEX, newpc_AGEX, rd_val_pt_AGEX, rd_val_btb_tag_AGEX, rd_val_btb_value_AGEX};
   assign from_AGEX_to_DE = {rd_AGEX, type_I_AGEX, br_cond_AGEX};
+  assign from_AGEX_to_WB = {hit_prediction_AGEX, branch_count_AGEX};
 
   always @ (posedge clk or posedge reset) begin
     if(reset) begin
       AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
+      hit_prediction_AGEX <= 0;
+      branch_count_AGEX<=0;
       // might need more code here  
         end 
     // else if (br_cond_AGEX == 1) begin
     //     AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
     //   end
+
     else if (inst_AGEX == 0)
       AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
     else 
@@ -287,6 +336,16 @@ end
       // need to complete 
             AGEX_latch <= AGEX_latch_contents ;
         end 
+    
+    if(op_I_AGEX == `BEQ_I || op_I_AGEX == `BNE_I || op_I_AGEX == `BLT_I || op_I_AGEX == `BGE_I || op_I_AGEX == `BLTU_I || op_I_AGEX == `BGEU_I || op_I_AGEX == `JAL_I || op_I_AGEX == `JALR_I) begin
+      branch_count_AGEX <= branch_count_AGEX+1;
+    end
+    
+    if (is_BTB_hit_AGEX) begin
+      if (guessed_br_direction_AGEX == actual_br_direction) begin
+        hit_prediction_AGEX<=hit_prediction_AGEX+1;
+      end 
+    end
   end
 
 //might need to be negedge

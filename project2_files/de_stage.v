@@ -292,6 +292,9 @@ assign regval2_DE = regs[rs2_DE];
                     || (op_I_DE == `SRLI_I) || (op_I_DE == `SLL_I) || (op_I_DE == `SLLI_I)
                     || (op_I_DE == `LW_I)) ?  1: 0 ; 
 
+
+
+
  /* this signal is passed from WB stage */ 
   wire wr_reg_WB; // is this instruction writing into a register file? 
   wire [`REGNOBITS-1:0] wregno_WB; // destination register ID 

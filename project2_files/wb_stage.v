@@ -5,6 +5,7 @@ module WB_STAGE(
   input clk,
   input reset,  
   input [`MEM_latch_WIDTH-1:0] from_MEM_latch,
+  input [`from_AGEX_to_WB_WIDTH-1:0] from_AGEX_to_WB,
   output[`from_WB_to_FE_WIDTH-1:0] from_WB_to_FE,
   output[`from_WB_to_DE_WIDTH-1:0] from_WB_to_DE,  
   output[`from_WB_to_AGEX_WIDTH-1:0] from_WB_to_AGEX,
@@ -19,7 +20,8 @@ module WB_STAGE(
   wire [`BUS_CANARY_WIDTH-1:0] bus_canary_WB;
   wire [`TYPENOBITS-1:0] type_I_WB;
 
-  
+  reg[`DBITS-1:0] hit_prediction_WB;
+  reg[`DBITS-1:0] branch_count_WB;
 
   wire wr_reg_WB; // is this instruction writing into a register file? 
   
@@ -53,7 +55,7 @@ module WB_STAGE(
         
         // write register by sending data to the DE stage 
         
-
+assign {hit_prediction_WB, branch_count_WB} = from_AGEX_to_WB;
 
 
 // we send register write (and CSR register) information to DE stage 
@@ -78,6 +80,9 @@ assign from_WB_to_DE = {wr_reg_WB, wregno_WB, regval_WB, wcsrno_WB, wr_csr_WB, r
     WB_counters[5] <= inst_count_WB; 
     WB_counters[6] <= {26'b0, op_I_WB}; 
     WB_counters[7] <= {27'b0, wregno_WB};   
+
+    WB_counters[8] <= hit_prediction_WB;
+    WB_counters[9] <= branch_count_WB;
   end 
 
 endmodule 

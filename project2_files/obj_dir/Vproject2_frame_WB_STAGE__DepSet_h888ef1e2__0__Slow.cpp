@@ -15,6 +15,7 @@ VL_ATTR_COLD void Vproject2_frame_WB_STAGE___ctor_var_reset(Vproject2_frame_WB_S
     vlSelf->__PVT__clk = VL_RAND_RESET_I(1);
     vlSelf->__PVT__reset = VL_RAND_RESET_I(1);
     VL_RAND_RESET_W(148, vlSelf->__PVT__from_MEM_latch);
+    vlSelf->__PVT__from_AGEX_to_WB = VL_RAND_RESET_Q(64);
     vlSelf->__PVT__from_WB_to_FE = VL_RAND_RESET_I(1);
     vlSelf->__PVT__from_WB_to_DE = VL_RAND_RESET_Q(52);
     vlSelf->__PVT__from_WB_to_AGEX = VL_RAND_RESET_I(1);

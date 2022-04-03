@@ -23,7 +23,7 @@ double sc_time_stamp() {
   return timestamp;
 }
 
-#define RUN_CYCLES 10000
+#define RUN_CYCLES 100000
 
 #define CLOCK_PERIOD 10
 
@@ -95,14 +95,15 @@ int main(int argc, char** argv, char** env) {
         }
 
     // #endif 
-
-
+    
     #ifdef VCD_OUTPUT
         trace->dump(timestamp);
     #endif
         ++timestamp;
     }
 
+    std::cout<<"Hit_prediction:" << std::dec <<  (int)prj->project2_frame->my_WB_stage->WB_counters[8] << std::endl; 
+    std::cout<<"Total Branch:" << std::dec <<  (int)prj->project2_frame->my_WB_stage->WB_counters[9] << std::endl; 
     int exitcode = (int)prj->project2_frame->my_WB_stage->last_WB_value[10];
 
     // Final model cleanup

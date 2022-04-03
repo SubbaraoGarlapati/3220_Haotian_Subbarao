@@ -17,7 +17,7 @@
 // address space is m 0x00000000 to 0x000fffff
   // [NOTICE] please note that both imem and dmem use the SAME "IDMEMINITFILE".
   // you need to change this line to change which test file to read 
-  `define IDMEMINITFILE "/home/subbarao/Documents/CS3220/3220_Haotian_Subbarao/project2_files/test/towers/towers.mem"
+  `define IDMEMINITFILE "/Users/Cody/Documents/GitHub/3220_Haotian_Subbarao/project2_files/test/towers/towers.mem"
   `define IMEMADDRBITS  16
   `define IMEMWORDBITS  2
   `define IMEMWORDS	  (1 << (`IMEMADDRBITS - `IMEMWORDBITS))
@@ -217,6 +217,7 @@
   `define from_AGEX_to_FE_WIDTH (1 + `DBITS + `PTENTRYBITS + `TAGBITS + `DBITS)
   `define from_MEM_to_FE_WIDTH 1
   `define from_WB_to_FE_WIDTH 1
+  `define from_AGEX_to_WB_WIDTH (`DBITS+`DBITS)
 
   `define from_AGEX_to_DE_WIDTH (`REGNOBITS + `TYPENOBITS + 1)
   `define from_MEM_to_DE_WIDTH  (`REGNOBITS + `TYPENOBITS)

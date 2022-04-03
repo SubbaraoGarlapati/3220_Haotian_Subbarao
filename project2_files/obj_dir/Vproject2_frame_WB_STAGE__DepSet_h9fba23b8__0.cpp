@@ -20,6 +20,8 @@ VL_INLINE_OPT void Vproject2_frame_WB_STAGE___sequent__TOP__project2_frame__my_W
     IData/*31:0*/ __Vdlyvval__WB_counters__v4;
     IData/*31:0*/ __Vdlyvval__WB_counters__v5;
     IData/*31:0*/ __Vdlyvval__WB_counters__v6;
+    IData/*31:0*/ __Vdlyvval__WB_counters__v7;
+    IData/*31:0*/ __Vdlyvval__WB_counters__v8;
     // Body
     __Vdlyvval__WB_counters__v0 = ((vlSymsp->TOP__project2_frame.__PVT__my_MEM_stage__DOT__MEM_latch[3U] 
                                     << 0xcU) | (vlSymsp->TOP__project2_frame.__PVT__my_MEM_stage__DOT__MEM_latch[2U] 
@@ -39,6 +41,9 @@ VL_INLINE_OPT void Vproject2_frame_WB_STAGE___sequent__TOP__project2_frame__my_W
                                             >> 0xeU));
     __Vdlyvval__WB_counters__v6 = (0x1fU & (vlSymsp->TOP__project2_frame.__PVT__my_MEM_stage__DOT__MEM_latch[0U] 
                                             >> 9U));
+    __Vdlyvval__WB_counters__v7 = (IData)((vlSymsp->TOP__project2_frame.__PVT__from_AGEX_to_WB 
+                                           >> 0x20U));
+    __Vdlyvval__WB_counters__v8 = (IData)(vlSymsp->TOP__project2_frame.__PVT__from_AGEX_to_WB);
     vlSelf->WB_counters[1U] = __Vdlyvval__WB_counters__v0;
     vlSelf->WB_counters[2U] = __Vdlyvval__WB_counters__v1;
     vlSelf->WB_counters[3U] = __Vdlyvval__WB_counters__v2;
@@ -46,6 +51,8 @@ VL_INLINE_OPT void Vproject2_frame_WB_STAGE___sequent__TOP__project2_frame__my_W
     vlSelf->WB_counters[5U] = __Vdlyvval__WB_counters__v4;
     vlSelf->WB_counters[6U] = __Vdlyvval__WB_counters__v5;
     vlSelf->WB_counters[7U] = __Vdlyvval__WB_counters__v6;
+    vlSelf->WB_counters[8U] = __Vdlyvval__WB_counters__v7;
+    vlSelf->WB_counters[9U] = __Vdlyvval__WB_counters__v8;
 }
 
 VL_INLINE_OPT void Vproject2_frame_WB_STAGE___sequent__TOP__project2_frame__my_WB_stage__2(Vproject2_frame_WB_STAGE* vlSelf) {

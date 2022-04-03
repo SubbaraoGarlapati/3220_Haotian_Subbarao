@@ -32,6 +32,8 @@ module project2_frame(
 
   wire [`from_WB_to_MEM_WIDTH-1:0] from_WB_to_MEM;
 
+  wire [`from_AGEX_to_WB_WIDTH-1:0] from_AGEX_to_WB;
+
 
   
 
@@ -64,6 +66,7 @@ AGEX_STAGE my_AGEX_stage(
   .from_MEM_to_AGEX(from_MEM_to_AGEX),    
   .from_WB_to_AGEX(from_WB_to_AGEX),   
   .from_DE_latch(DE_latch_out),
+  .from_AGEX_to_WB(from_AGEX_to_WB),
   .from_FE_to_AGEX(from_FE_to_AGEX),
   .AGEX_latch_out(AGEX_latch_out),
   .from_AGEX_to_FE(from_AGEX_to_FE),
@@ -91,7 +94,8 @@ WB_STAGE my_WB_stage(
   .from_WB_to_FE(from_WB_to_FE),
   .from_WB_to_DE(from_WB_to_DE),  
   .from_WB_to_AGEX(from_WB_to_AGEX),
-  .from_WB_to_MEM(from_WB_to_MEM)
+  .from_WB_to_MEM(from_WB_to_MEM),
+  .from_AGEX_to_WB(from_AGEX_to_WB)
 );
 
 

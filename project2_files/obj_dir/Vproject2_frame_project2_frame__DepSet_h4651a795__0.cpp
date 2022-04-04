@@ -80,8 +80,12 @@ VL_INLINE_OPT void Vproject2_frame_project2_frame___sequent__TOP__project2_frame
         __Vdly__my_AGEX_stage__DOT__hit_prediction_AGEX = 0U;
     }
     if ((0x20000U & vlSelf->__PVT__my_DE_stage__DOT__DE_latch[1U])) {
-        if (((1U & (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[1U] 
-                    >> 0x10U)) == (IData)(vlSelf->__PVT__my_AGEX_stage__DOT__actual_br_direction))) {
+        if (((((1U & (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[1U] 
+                      >> 0x10U)) == (IData)(vlSelf->__PVT__my_AGEX_stage__DOT__actual_br_direction)) 
+              & (((vlSelf->__PVT__my_DE_stage__DOT__DE_latch[1U] 
+                   << 0x10U) | (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[0U] 
+                                >> 0x10U)) == vlSelf->__PVT__my_AGEX_stage__DOT__newpc_AGEX)) 
+             & (IData)(vlSelf->__PVT__my_AGEX_stage__DOT__actual_br_direction))) {
             __Vdly__my_AGEX_stage__DOT__hit_prediction_AGEX 
                 = ((IData)(1U) + vlSelf->__PVT__my_AGEX_stage__DOT__hit_prediction_AGEX);
         }

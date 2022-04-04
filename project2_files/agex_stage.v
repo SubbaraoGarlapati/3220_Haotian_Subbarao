@@ -342,7 +342,7 @@ end
     end
     
     if (is_BTB_hit_AGEX) begin
-      if (guessed_br_direction_AGEX == actual_br_direction) begin
+      if (guessed_br_direction_AGEX == actual_br_direction && guessed_br_address_AGEX == newpc_AGEX && actual_br_direction == 1) begin
         hit_prediction_AGEX<=hit_prediction_AGEX+1;
       end 
     end

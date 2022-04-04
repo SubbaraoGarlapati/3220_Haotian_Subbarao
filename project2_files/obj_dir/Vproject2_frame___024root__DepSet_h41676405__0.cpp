@@ -7,6 +7,16 @@
 
 #include "Vproject2_frame___024root.h"
 
+QData Vproject2_frame___024root___change_request_1(Vproject2_frame___024root* vlSelf);
+
+VL_INLINE_OPT QData Vproject2_frame___024root___change_request(Vproject2_frame___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    Vproject2_frame__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vproject2_frame___024root___change_request\n"); );
+    // Body
+    return (Vproject2_frame___024root___change_request_1(vlSelf));
+}
+
 #ifdef VL_DEBUG
 void Vproject2_frame___024root___eval_debug_assertions(Vproject2_frame___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused

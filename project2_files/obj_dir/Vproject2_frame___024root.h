@@ -20,7 +20,12 @@ VL_MODULE(Vproject2_frame___024root) {
     VL_IN8(reset,0,0);
     CData/*0:0*/ __Vclklast__TOP__clk;
     CData/*0:0*/ __Vclklast__TOP__reset;
+<<<<<<< Updated upstream
     VlUnpacked<CData/*0:0*/, 5> __Vm_traceActivity;
+=======
+    VlWide<3>/*92:0*/ __Vchglast__TOP__project2_frame__from_AGEX_to_FE;
+    VlUnpacked<CData/*0:0*/, 8> __Vm_traceActivity;
+>>>>>>> Stashed changes
 
     // INTERNAL VARIABLES
     Vproject2_frame__Syms* vlSymsp;  // Symbol table

@@ -23,7 +23,11 @@ double sc_time_stamp() {
   return timestamp;
 }
 
+<<<<<<< Updated upstream
 #define RUN_CYCLES 1000
+=======
+#define RUN_CYCLES 50000
+>>>>>>> Stashed changes
 
 #define CLOCK_PERIOD 10
 
@@ -102,7 +106,16 @@ int main(int argc, char** argv, char** env) {
         ++timestamp;
     }
 
+<<<<<<< Updated upstream
     int exitcode = (int)prj->project2_frame->my_WB_stage->last_WB_value[3];
+=======
+    float hit = float((int)prj->project2_frame->my_WB_stage->WB_counters[8]);
+    float total = float((int)prj->project2_frame->my_WB_stage->WB_counters[9]);
+    std::cout<<"Hit_prediction:" << std::dec <<  (int)prj->project2_frame->my_WB_stage->WB_counters[8] << std::endl; 
+    std::cout<<"Total Branch:" << std::dec <<  (int)prj->project2_frame->my_WB_stage->WB_counters[9] << std::endl; 
+    std::cout<<"BP accuracy:" << std::dec <<  hit/total*100 << "%" << std::endl; 
+    int exitcode = (int)prj->project2_frame->my_WB_stage->last_WB_value[10];
+>>>>>>> Stashed changes
 
     // Final model cleanup
     prj->final();
@@ -116,10 +129,24 @@ int main(int argc, char** argv, char** env) {
     delete prj;
 
     // TinyRV1 test Pass/Fail status
+<<<<<<< Updated upstream
     if(1 == exitcode)
         std::cout<<"Passed!"<<std::endl;
     else
         std::cout<<"Failed. exitcode: "<<exitcode<<std::endl;
+=======
+    // if(1 == exitcode)
+    //     std::cout<<"Passed!"<<std::endl;
+    // else
+    //     std::cout<<"Failed. exitcode: "<<exitcode<<std::endl;
+
+
+    if(1 == exitcode) 
+        std::cout<<"Passed! cycle_count:" << last_print_inst_count_WB << std::endl; 
+    else 
+        std::cout<<"Failed. exitcode: "<<exitcode<<std::endl; 
+        std::cout<<"cycle_count:" << last_print_inst_count_WB << std::endl; 
+>>>>>>> Stashed changes
 
     // Fin
     exit(0);

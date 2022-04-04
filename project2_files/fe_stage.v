@@ -60,6 +60,16 @@ module FE_STAGE(
                                 PC_FE_latch, 
                                 pcplus_FE, // please feel free to add more signals such as valid bits etc. 
                                 inst_count_FE, 
+<<<<<<< Updated upstream
+=======
+                                /*
+                                is_BTB_hit_FE,
+                                guessed_br_direction_FE,
+                                guessed_br_address,
+                                memaddr_pt_FE,
+                                memaddr_btb_FE,
+                                */
+>>>>>>> Stashed changes
                                 // if you add more bits here, please increase the width of latch in VX_define.vh 
                                 `BUS_CANARY_VALUE // for an error checking of bus encoding/decoding  
                                 };
@@ -71,8 +81,38 @@ module FE_STAGE(
    //assign stall_pipe_FE = 0;  // you need to modify this line for your design 
   wire br_cond_AGEX_in_FE;
   wire [`DBITS-1:0] newpc_AGEX;
+<<<<<<< Updated upstream
   assign {br_cond_AGEX_in_FE, newpc_AGEX} = from_AGEX_to_FE;
   
+=======
+
+  //indexes of PT and BTB
+  wire [`PTINDEXBITS-1:0] memaddr_pt_FE;
+  wire [`BTBINDEXBITS-1:0] memaddr_btb_FE;
+
+  //assign memaddr_pt_FE = PC_FE_latch[9:2] ^ rd_val_bhr_FE;
+  assign memaddr_pt_FE = PC_FE_latch[9:2];
+  assign memaddr_btb_FE = PC_FE_latch[5:2];
+
+  assign from_FE_to_AGEX = {is_BTB_hit_FE,
+                                guessed_br_direction_FE,
+                                guessed_br_address_FE,
+                                memaddr_pt_FE,
+                                memaddr_btb_FE};
+
+  assign rd_val_bhr_FE = bhr_from_AGEX_to_FE;
+  assign {br_cond_AGEX_in_FE, newpc_AGEX, rd_val_pt_FE, rd_val_btb_tag_FE, rd_val_btb_value_FE} = from_AGEX_to_FE;
+
+  wire [`BHRENTRYBITS-1:0] rd_val_bhr_FE;
+  wire [`PTENTRYBITS-1:0] rd_val_pt_FE;
+  wire [`TAGBITS-1:0] rd_val_btb_tag_FE;
+  wire [`DBITS-1:0] rd_val_btb_value_FE;
+
+  wire is_BTB_hit_FE = (rd_val_btb_tag_FE == PC_FE_latch[31:6]) ? 1 : 0;
+  wire guessed_br_direction_FE = (rd_val_pt_FE >= 2) ? 1 : 0;
+  wire [`DBITS-1:0] guessed_br_address_FE = (rd_val_pt_FE >= 2) ? rd_val_btb_value_FE : pcplus_FE;
+
+>>>>>>> Stashed changes
   assign stall_pipe_FE = from_DE_to_FE;
 
   always @ (posedge clk or posedge reset) begin
@@ -85,7 +125,20 @@ module FE_STAGE(
        PC_FE_latch <= newpc_AGEX;
        inst_count_FE <= inst_count_FE + 1;
      end
+<<<<<<< Updated upstream
      else if(!stall_pipe_FE) begin 
+=======
+    else if (stall_pipe_FE) begin
+      PC_FE_latch <= PC_FE_latch;
+    end
+    
+    else if (is_BTB_hit_FE) begin
+      PC_FE_latch <= (guessed_br_direction_FE) ? guessed_br_address_FE : pcplus_FE;
+      inst_count_FE <= inst_count_FE + 1;
+    end
+    
+     else begin 
+>>>>>>> Stashed changes
       PC_FE_latch <= pcplus_FE;
       inst_count_FE <= inst_count_FE + 1; 
       end 

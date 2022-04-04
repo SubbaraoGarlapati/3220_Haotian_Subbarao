@@ -29,6 +29,42 @@ module AGEX_STAGE(
 
   wire[`BUS_CANARY_WIDTH-1:0] bus_canary_AGEX; 
  
+<<<<<<< Updated upstream
+=======
+  //memory addresses for pattern table and branch target buffer
+  wire [`PTINDEXBITS-1:0] memaddr_pt_AGEX;
+  wire [`BTBINDEXBITS-1:0] memaddr_btb_AGEX;
+
+  assign {is_BTB_hit_AGEX,
+          guessed_br_direction_AGEX,
+          guessed_br_address_AGEX,
+          memaddr_pt_AGEX,
+          memaddr_btb_AGEX} = from_FE_to_AGEX;
+  //read value for bhr is just the value of bhr because there's no index
+  //read value for pattern table and branch target buffer
+  wire [`BHRENTRYBITS-1:0] rd_val_bhr_AGEX;
+  wire [`PTENTRYBITS-1:0] rd_val_pt_AGEX;
+  wire [`TAGBITS-1:0] rd_val_btb_tag_AGEX;
+  wire [`DBITS-1:0] rd_val_btb_value_AGEX;
+
+  
+
+  
+  assign rd_val_bhr_AGEX = bhr_AGEX;
+  
+  assign rd_val_pt_AGEX = pt_AGEX[memaddr_pt_AGEX];
+  assign rd_val_btb_tag_AGEX = btb_tag_AGEX[memaddr_btb_AGEX];
+  assign rd_val_btb_value_AGEX = btb_value_AGEX[memaddr_btb_AGEX];
+
+  assign bhr_from_AGEX_to_FE = rd_val_bhr_AGEX;
+
+  //Passed in variables from FE->DE->AGEX
+  wire is_BTB_hit_AGEX;
+  wire guessed_br_direction_AGEX;
+  wire [`DBITS-1:0] guessed_br_address_AGEX;
+  wire [`PTINDEXBITS-1:0] memaddr_pt_AGEX;
+  wire [`BTBINDEXBITS-1:0] memaddr_btb_DE;
+>>>>>>> Stashed changes
  // **TODO: Complete the rest of the pipeline 
  
   wire [`DBITS-1:0] regval1_AGEX; 
@@ -52,6 +88,7 @@ module AGEX_STAGE(
   // assign less = (regval1_AGEX < regval2_AGEX);
 
   always @ (*) begin
+<<<<<<< Updated upstream
     case (op_I_AGEX)
       `BEQ_I : 
         begin br_cond_AGEX = 1; // write correct code to check the branch condition. 
@@ -73,6 +110,45 @@ module AGEX_STAGE(
         br_cond_AGEX = 1;
       default : br_cond_AGEX = 1'b0;
     endcase
+=======
+    //determine actual branch direction
+    begin
+      case (op_I_AGEX)
+        `BEQ_I : 
+          begin actual_br_direction = 1; // write correct code to check the branch condition. 
+            actual_br_direction = (regval1_AGEX == regval2_AGEX) ? 1 : 0;
+          end
+        `BNE_I:
+          actual_br_direction = (regval1_AGEX == regval2_AGEX) ? 0 : 1;
+        `BLT_I : 
+          actual_br_direction = (s_regval1_AGEX < s_regval2_AGEX) ? 1 : 0;
+        `BGE_I : 
+          actual_br_direction = (s_regval1_AGEX >= s_regval2_AGEX) ? 1 : 0;
+        `BLTU_I: 
+          actual_br_direction = (regval1_AGEX < regval2_AGEX) ? 1 : 0;
+        `BGEU_I :
+          actual_br_direction = (regval1_AGEX >= regval2_AGEX) ? 1 : 0;
+        `JAL_I:
+          actual_br_direction = 1;
+        `JALR_I:
+          actual_br_direction = 1;
+        default : actual_br_direction = 1'b0;
+      endcase
+    end
+  // logic if BTB is hit or not
+  
+    if (is_BTB_hit_AGEX) begin
+      if (guessed_br_direction_AGEX != actual_br_direction) begin
+        br_cond_AGEX = 1;
+      end else begin
+        br_cond_AGEX = 0;
+      end
+    end
+    else begin
+      br_cond_AGEX = actual_br_direction;
+    end
+    
+>>>>>>> Stashed changes
   end
 
   reg [`DBITS-1:0] aluout_AGEX; 
@@ -154,6 +230,11 @@ module AGEX_STAGE(
     `JAL_I:
       begin
         aluout_AGEX = pcplus_AGEX;
+<<<<<<< Updated upstream
+=======
+        
+      if(actual_br_direction)
+>>>>>>> Stashed changes
         newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
       end
     `JALR_I:
@@ -191,6 +272,16 @@ end
                                   rd_AGEX, 
                                   wr_reg_AGEX, 
                                   type_I_AGEX,
+<<<<<<< Updated upstream
+=======
+                                  /*
+                                  is_BTB_hit_AGEX,
+                                  guessed_br_direction_AGEX,
+                                  guessed_br_address_AGEX,
+                                  memaddr_pt_AGEX,
+                                  memaddr_btb_AGEX, 
+                                  */
+>>>>>>> Stashed changes
                                           // more signals might need
                                   bus_canary_AGEX
                                   } = from_DE_latch; 
@@ -219,9 +310,16 @@ end
       AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
       // might need more code here  
         end 
+<<<<<<< Updated upstream
     // else if (br_cond_AGEX == 1) begin
     //     AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
     //   end
+=======
+     //else if (br_cond_AGEX == 1) begin
+     //    AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
+     //  end
+
+>>>>>>> Stashed changes
     else if (inst_AGEX == 0)
       AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
     else 
@@ -229,6 +327,38 @@ end
       // need to complete 
             AGEX_latch <= AGEX_latch_contents ;
         end 
+<<<<<<< Updated upstream
+=======
+    
+    if(op_I_AGEX == `BEQ_I || op_I_AGEX == `BNE_I || op_I_AGEX == `BLT_I || op_I_AGEX == `BGE_I || op_I_AGEX == `BLTU_I || op_I_AGEX == `BGEU_I || op_I_AGEX == `JAL_I || op_I_AGEX == `JALR_I) begin
+      branch_count_AGEX <= branch_count_AGEX+1;
+    end
+    if (is_BTB_hit_AGEX) begin
+      if (guessed_br_direction_AGEX == actual_br_direction && guessed_br_address_AGEX == newpc_AGEX) begin
+        hit_prediction_AGEX<=hit_prediction_AGEX+1;
+      end
+    end
+
+  end
+
+//might need to be negedge
+//update bhr, pt, btb
+// wire pt_value_AGEX = pt_AGEX[memaddr_pt_AGEX];
+
+
+  always @ (posedge clk) begin
+    if (op_I_AGEX == `BEQ_I || op_I_AGEX == `BNE_I || op_I_AGEX == `BLT_I || op_I_AGEX == `BGE_I || op_I_AGEX == `BLTU_I || op_I_AGEX == `BGEU_I || op_I_AGEX == `JAL_I || op_I_AGEX == `JALR_I) begin
+      bhr_AGEX = bhr_AGEX << 1 | {{7{1'b0}},actual_br_direction};
+
+      if (actual_br_direction == 1 && pt_AGEX[memaddr_pt_AGEX] < 3) begin
+        pt_AGEX[memaddr_pt_AGEX] = rd_val_pt_AGEX - 1;
+      end else if (actual_br_direction == 0 && pt_AGEX[memaddr_pt_AGEX] > 0) begin
+        pt_AGEX[memaddr_pt_AGEX] = rd_val_pt_AGEX + 1;
+      end
+      btb_tag_AGEX[memaddr_btb_AGEX] = PC_AGEX[31:6];
+      btb_value_AGEX[memaddr_btb_AGEX] = newpc_AGEX;
+    end
+>>>>>>> Stashed changes
   end
 
 

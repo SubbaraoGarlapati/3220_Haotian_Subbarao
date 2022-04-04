@@ -36,6 +36,7 @@ Vproject2_frame::~Vproject2_frame() {
 void Vproject2_frame___024root___eval_initial(Vproject2_frame___024root* vlSelf);
 void Vproject2_frame___024root___eval_settle(Vproject2_frame___024root* vlSelf);
 void Vproject2_frame___024root___eval(Vproject2_frame___024root* vlSelf);
+QData Vproject2_frame___024root___change_request(Vproject2_frame___024root* vlSelf);
 #ifdef VL_DEBUG
 void Vproject2_frame___024root___eval_debug_assertions(Vproject2_frame___024root* vlSelf);
 #endif  // VL_DEBUG
@@ -45,12 +46,27 @@ static void _eval_initial_loop(Vproject2_frame__Syms* __restrict vlSymsp) {
     vlSymsp->__Vm_didInit = true;
     Vproject2_frame___024root___eval_initial(&(vlSymsp->TOP));
     // Evaluate till stable
+    int __VclockLoop = 0;
+    QData __Vchange = 1;
     vlSymsp->__Vm_activity = true;
     do {
         VL_DEBUG_IF(VL_DBG_MSGF("+ Initial loop\n"););
         Vproject2_frame___024root___eval_settle(&(vlSymsp->TOP));
         Vproject2_frame___024root___eval(&(vlSymsp->TOP));
-    } while (0);
+        if (VL_UNLIKELY(++__VclockLoop > 100)) {
+            // About to fail, so enable debug to see what's not settling.
+            // Note you must run make with OPT=-DVL_DEBUG for debug prints.
+            int __Vsaved_debug = Verilated::debug();
+            Verilated::debug(1);
+            __Vchange = Vproject2_frame___024root___change_request(&(vlSymsp->TOP));
+            Verilated::debug(__Vsaved_debug);
+            VL_FATAL_MT("project2_frame.v", 3, "",
+                "Verilated model didn't DC converge\n"
+                "- See https://verilator.org/warn/DIDNOTCONVERGE");
+        } else {
+            __Vchange = Vproject2_frame___024root___change_request(&(vlSymsp->TOP));
+        }
+    } while (VL_UNLIKELY(__Vchange));
 }
 
 void Vproject2_frame::eval_step() {
@@ -62,11 +78,26 @@ void Vproject2_frame::eval_step() {
     // Initialize
     if (VL_UNLIKELY(!vlSymsp->__Vm_didInit)) _eval_initial_loop(vlSymsp);
     // Evaluate till stable
+    int __VclockLoop = 0;
+    QData __Vchange = 1;
     vlSymsp->__Vm_activity = true;
     do {
         VL_DEBUG_IF(VL_DBG_MSGF("+ Clock loop\n"););
         Vproject2_frame___024root___eval(&(vlSymsp->TOP));
-    } while (0);
+        if (VL_UNLIKELY(++__VclockLoop > 100)) {
+            // About to fail, so enable debug to see what's not settling.
+            // Note you must run make with OPT=-DVL_DEBUG for debug prints.
+            int __Vsaved_debug = Verilated::debug();
+            Verilated::debug(1);
+            __Vchange = Vproject2_frame___024root___change_request(&(vlSymsp->TOP));
+            Verilated::debug(__Vsaved_debug);
+            VL_FATAL_MT("project2_frame.v", 3, "",
+                "Verilated model didn't converge\n"
+                "- See https://verilator.org/warn/DIDNOTCONVERGE");
+        } else {
+            __Vchange = Vproject2_frame___024root___change_request(&(vlSymsp->TOP));
+        }
+    } while (VL_UNLIKELY(__Vchange));
     // Evaluate cleanup
 }
 

@@ -7,6 +7,18 @@
 extern const VlWide<8>/*255:0*/ Vproject2_frame__ConstPool__CONST_h4737c94f_0 = {{
     0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000
+<<<<<<< Updated upstream
+=======
+}};
+
+extern const VlWide<22>/*703:0*/ Vproject2_frame__ConstPool__CONST_h62ab283d_0 = {{
+    0x2e6d656d, 0x77657273, 0x732f746f, 0x6f776572,
+    0x73742f74, 0x732f7465, 0x66696c65, 0x6374325f,
+    0x726f6a65, 0x616f2f70, 0x62626172, 0x6e5f5375,
+    0x6f746961, 0x305f4861, 0x2f333232, 0x74487562,
+    0x732f4769, 0x6d656e74, 0x446f6375, 0x6f64792f,
+    0x72732f43, 0x2f557365
+>>>>>>> Stashed changes
 }};
 
 extern const VlUnpacked<CData/*3:0*/, 64> Vproject2_frame__ConstPool__TABLE_h2b6e92a2_0 = {{

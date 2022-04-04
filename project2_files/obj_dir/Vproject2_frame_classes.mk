@@ -39,6 +39,7 @@ VM_CLASSES_SLOW += \
 	Vproject2_frame___024root__DepSet_h1bb77ebf__0__Slow \
 	Vproject2_frame___024root__DepSet_h41676405__0__Slow \
 	Vproject2_frame_project2_frame__Slow \
+	Vproject2_frame_project2_frame__DepSet_h4651a795__0__Slow \
 	Vproject2_frame_project2_frame__DepSet_h0d88bb1f__0__Slow \
 	Vproject2_frame_WB_STAGE__Slow \
 	Vproject2_frame_WB_STAGE__DepSet_h888ef1e2__0__Slow \

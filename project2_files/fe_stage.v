@@ -65,8 +65,10 @@ module FE_STAGE(
                                 is_BTB_hit_FE,
                                 guessed_br_direction_FE,
                                 guessed_br_address,
+                                
                                 memaddr_pt_FE,
                                 memaddr_btb_FE,
+                                
                                 // if you add more bits here, please increase the width of latch in VX_define.vh 
                                 `BUS_CANARY_VALUE // for an error checking of bus encoding/decoding  
                                 };
@@ -87,7 +89,7 @@ module FE_STAGE(
   assign memaddr_pt_FE = PC_FE_latch[9:2] ^ rd_val_bhr_FE;
   assign memaddr_btb_FE = PC_FE_latch[5:2];
 
-  assign from_FE_to_AGEX = {memaddr_pt_FE, memaddr_btb_FE};
+  //assign from_FE_to_AGEX = {memaddr_pt_FE, memaddr_btb_FE};
 
   assign rd_val_bhr_FE = bhr_from_AGEX_to_FE;
   assign {br_cond_AGEX_in_FE, newpc_AGEX, rd_val_pt_FE, rd_val_btb_tag_FE, rd_val_btb_value_FE} = from_AGEX_to_FE;

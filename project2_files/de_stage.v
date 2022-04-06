@@ -367,8 +367,10 @@ assign regval2_DE = regs[rs2_DE];
             is_BTB_hit_DE,
             guessed_br_direction_DE,
             guessed_br_address_DE,
+            
             memaddr_pt_DE,
             memaddr_btb_DE, 
+            
             bus_canary_DE
             }  = from_FE_latch;  // based on the contents of the latch, you can decode the content 
 
@@ -391,6 +393,7 @@ assign regval2_DE = regs[rs2_DE];
                                   is_BTB_hit_DE,
                                   guessed_br_direction_DE,
                                   guessed_br_address_DE,
+                                  
                                   memaddr_pt_DE,
                                   memaddr_btb_DE,
                                   // more signals might need

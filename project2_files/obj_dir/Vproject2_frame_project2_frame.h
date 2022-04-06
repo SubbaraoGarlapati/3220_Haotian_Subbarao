@@ -20,7 +20,6 @@ VL_MODULE(Vproject2_frame_project2_frame) {
     VL_IN8(reset,0,0);
     CData/*0:0*/ __PVT__from_MEM_to_FE;
     CData/*0:0*/ __PVT__from_MEM_to_AGEX;
-    CData/*7:0*/ __PVT__my_FE_stage__DOT__memaddr_pt_FE;
     CData/*0:0*/ __PVT__my_FE_stage__DOT__is_BTB_hit_FE;
     CData/*5:0*/ __PVT__my_DE_stage__DOT__op_I_DE;
     CData/*3:0*/ __PVT__my_DE_stage__DOT__type_I_DE;
@@ -35,10 +34,7 @@ VL_MODULE(Vproject2_frame_project2_frame) {
     CData/*0:0*/ __PVT__my_AGEX_stage__DOT__br_cond_AGEX;
     CData/*0:0*/ __PVT__my_AGEX_stage__DOT__actual_br_direction;
     CData/*7:0*/ __PVT__my_AGEX_stage__DOT__bhr_AGEX;
-    CData/*7:0*/ __PVT__my_AGEX_stage__DOT__memaddr_pt_AGEX;
-    CData/*3:0*/ __PVT__my_AGEX_stage__DOT__memaddr_btb_AGEX;
     CData/*1:0*/ __PVT__my_AGEX_stage__DOT__rd_val_pt_AGEX;
-    CData/*3:0*/ __PVT__my_AGEX_stage__DOT__memaddr_btb_DE;
     CData/*0:0*/ __Vdlyvset__my_DE_stage__DOT__regs__v0;
     CData/*4:0*/ __Vdlyvdim0__my_DE_stage__DOT__regs__v32;
     CData/*0:0*/ __Vdlyvset__my_DE_stage__DOT__regs__v32;

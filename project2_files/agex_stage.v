@@ -45,7 +45,7 @@ module AGEX_STAGE(
   wire [`PTINDEXBITS-1:0] memaddr_pt_AGEX;
   wire [`BTBINDEXBITS-1:0] memaddr_btb_AGEX;
 
-  assign {memaddr_pt_AGEX, memaddr_btb_AGEX} = from_FE_to_AGEX;
+  //assign {memaddr_pt_AGEX, memaddr_btb_AGEX} = from_FE_to_AGEX;
   //read value for bhr is just the value of bhr because there's no index
   //read value for pattern table and branch target buffer
   wire [`BHRENTRYBITS-1:0] rd_val_bhr_AGEX;
@@ -69,7 +69,8 @@ module AGEX_STAGE(
   wire guessed_br_direction_AGEX;
   wire [`DBITS-1:0] guessed_br_address_AGEX;
   wire [`PTINDEXBITS-1:0] memaddr_pt_AGEX;
-  wire [`BTBINDEXBITS-1:0] memaddr_btb_DE;
+  
+  //wire [`BTBINDEXBITS-1:0] memaddr_btb_DE;
  // **TODO: Complete the rest of the pipeline 
  
   wire [`DBITS-1:0] regval1_AGEX; 
@@ -292,8 +293,10 @@ end
                                   is_BTB_hit_AGEX,
                                   guessed_br_direction_AGEX,
                                   guessed_br_address_AGEX,
+                                  
                                   memaddr_pt_AGEX,
                                   memaddr_btb_AGEX, 
+                                  
                                           // more signals might need
                                   bus_canary_AGEX
                                   } = from_DE_latch; 
@@ -357,9 +360,9 @@ end
       bhr_AGEX = bhr_AGEX << 1 | {{7{1'b0}},actual_br_direction};
 
       if (actual_br_direction == 1 && pt_AGEX[memaddr_pt_AGEX] < 3) begin
-        pt_AGEX[memaddr_pt_AGEX] = rd_val_pt_AGEX - 1;
-      end else if (actual_br_direction == 0 && pt_AGEX[memaddr_pt_AGEX] > 0) begin
         pt_AGEX[memaddr_pt_AGEX] = rd_val_pt_AGEX + 1;
+      end else if (actual_br_direction == 0 && pt_AGEX[memaddr_pt_AGEX] > 0) begin
+        pt_AGEX[memaddr_pt_AGEX] = rd_val_pt_AGEX - 1;
       end
       btb_tag_AGEX[memaddr_btb_AGEX] = PC_AGEX[31:6];
       btb_value_AGEX[memaddr_btb_AGEX] = newpc_AGEX;

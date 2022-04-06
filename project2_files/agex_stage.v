@@ -45,7 +45,10 @@ module AGEX_STAGE(
   wire [`PTINDEXBITS-1:0] memaddr_pt_AGEX;
   wire [`BTBINDEXBITS-1:0] memaddr_btb_AGEX;
 
-  //assign {memaddr_pt_AGEX, memaddr_btb_AGEX} = from_FE_to_AGEX;
+  wire [`PTINDEXBITS-1:0] curr_memaddr_pt_AGEX;
+  wire [`BTBINDEXBITS-1:0] curr_memaddr_btb_AGEX;
+
+  assign {memaddr_pt_AGEX, memaddr_btb_AGEX} = from_FE_to_AGEX;
   //read value for bhr is just the value of bhr because there's no index
   //read value for pattern table and branch target buffer
   wire [`BHRENTRYBITS-1:0] rd_val_bhr_AGEX;
@@ -124,8 +127,22 @@ module AGEX_STAGE(
       endcase
     end
   // logic if BTB is hit or not
+    
+    
+  end
+  reg[`DBITS-1:0] actual_branch_address_AGEX;
+  
+  reg [`DBITS-1:0] aluout_AGEX; 
+  reg [`DBITS-1:0] newpc_AGEX;
+ // compute ALU operations  (alu out or memory addresses)
+
+   //memory components for store
+  reg wr_mem_AGEX;
+  reg [`DBITS-1:0] wr_val_AGEX;
+
+  always @ (*) begin
     if (is_BTB_hit_AGEX) begin
-      if (guessed_br_direction_AGEX != actual_br_direction) begin
+      if (guessed_br_direction_AGEX != actual_br_direction || guessed_br_address_AGEX!= actual_branch_address_AGEX) begin
         br_cond_AGEX = 1;
       end else begin
         br_cond_AGEX = 0;
@@ -134,16 +151,7 @@ module AGEX_STAGE(
     else begin
       br_cond_AGEX = actual_br_direction;
     end
-    
   end
-
-  reg [`DBITS-1:0] aluout_AGEX; 
-  reg [`DBITS-1:0] newpc_AGEX;
- // compute ALU operations  (alu out or memory addresses)
-
-   //memory components for store
-  reg wr_mem_AGEX;
-  reg [`DBITS-1:0] wr_val_AGEX;
 
   always @ (*) begin
     wr_mem_AGEX = (op_I_AGEX == `SW_I) ? 1 : 0;
@@ -204,60 +212,95 @@ module AGEX_STAGE(
     `BEQ_I:
       begin
       if(actual_br_direction)
+      begin
         newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+        actual_branch_address_AGEX  = PC_AGEX + sxt_imm_AGEX;
+      end
       else
+      begin
         newpc_AGEX = pcplus_AGEX;
+        actual_branch_address_AGEX  = pcplus_AGEX;
+      end
     end
     `BNE_I: begin
       if(actual_br_direction)
+      begin
         newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+        actual_branch_address_AGEX  = PC_AGEX + sxt_imm_AGEX;
+      end
       else
+      begin
         newpc_AGEX = pcplus_AGEX;
+        actual_branch_address_AGEX  = pcplus_AGEX;
+      end
     end
     `BLT_I:
       begin
       if(actual_br_direction)
+      begin
         newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+        actual_branch_address_AGEX  = PC_AGEX + sxt_imm_AGEX;
+      end
       else
+      begin
         newpc_AGEX = pcplus_AGEX;
+        actual_branch_address_AGEX  = pcplus_AGEX;
+      end
     end
     `BGE_I:
       begin
       if(actual_br_direction)
+      begin
         newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+        actual_branch_address_AGEX  = PC_AGEX + sxt_imm_AGEX;
+      end
       else
+      begin
         newpc_AGEX = pcplus_AGEX;
+        actual_branch_address_AGEX  = pcplus_AGEX;
+      end
     end
     `BLTU_I:
       begin
+
       if(actual_br_direction)
+      begin
         newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+        actual_branch_address_AGEX  = PC_AGEX + sxt_imm_AGEX;
+      end
       else
+      begin
         newpc_AGEX = pcplus_AGEX;
+        actual_branch_address_AGEX  = pcplus_AGEX;
+      end
     end
     `BGEU_I :
       begin
-      if(actual_br_direction)
+      if(actual_br_direction)begin
         newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
-      else
+        actual_branch_address_AGEX  = PC_AGEX + sxt_imm_AGEX;
+      end
+      else begin
         newpc_AGEX = pcplus_AGEX;
+        actual_branch_address_AGEX  = pcplus_AGEX;
+      end
     end
     `JAL_I:
       begin
         aluout_AGEX = pcplus_AGEX;
-        
-       if(actual_br_direction)
         newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
-      else
-        newpc_AGEX = pcplus_AGEX;
+        actual_branch_address_AGEX  = PC_AGEX + sxt_imm_AGEX;
+        
+        //newpc_AGEX = PC_AGEX + sxt_imm_AGEX;
+      
       end
     `JALR_I:
       begin
         aluout_AGEX = pcplus_AGEX;
-        if(actual_br_direction)
-          newpc_AGEX = (regval1_AGEX + sxt_imm_AGEX) & 32'hfffffffe;
-        else
-          newpc_AGEX = pcplus_AGEX;
+        
+        newpc_AGEX = (regval1_AGEX + sxt_imm_AGEX) & 32'hfffffffe;
+        actual_branch_address_AGEX  = PC_AGEX + sxt_imm_AGEX;
+        
         //newpc_AGEX = (regval1_AGEX + sxt_imm_AGEX) & 32'hfffffffe;
       end
     `LUI_I:
@@ -294,8 +337,9 @@ end
                                   guessed_br_direction_AGEX,
                                   guessed_br_address_AGEX,
                                   
-                                  memaddr_pt_AGEX,
-                                  memaddr_btb_AGEX, 
+                                  curr_memaddr_pt_AGEX,
+                                  curr_memaddr_btb_AGEX, 
+                                  
                                   
                                           // more signals might need
                                   bus_canary_AGEX
@@ -359,13 +403,13 @@ end
     if (op_I_AGEX == `BEQ_I || op_I_AGEX == `BNE_I || op_I_AGEX == `BLT_I || op_I_AGEX == `BGE_I || op_I_AGEX == `BLTU_I || op_I_AGEX == `BGEU_I || op_I_AGEX == `JAL_I || op_I_AGEX == `JALR_I) begin
       bhr_AGEX = bhr_AGEX << 1 | {{7{1'b0}},actual_br_direction};
 
-      if (actual_br_direction == 1 && pt_AGEX[memaddr_pt_AGEX] < 3) begin
-        pt_AGEX[memaddr_pt_AGEX] = rd_val_pt_AGEX + 1;
-      end else if (actual_br_direction == 0 && pt_AGEX[memaddr_pt_AGEX] > 0) begin
-        pt_AGEX[memaddr_pt_AGEX] = rd_val_pt_AGEX - 1;
+      if (actual_br_direction == 1 && pt_AGEX[curr_memaddr_pt_AGEX] < 3) begin
+        pt_AGEX[curr_memaddr_pt_AGEX] = pt_AGEX[curr_memaddr_pt_AGEX] + 1;
+      end else if (actual_br_direction == 0 && pt_AGEX[curr_memaddr_pt_AGEX] > 0) begin
+        pt_AGEX[curr_memaddr_pt_AGEX] = pt_AGEX[curr_memaddr_pt_AGEX] - 1;
       end
-      btb_tag_AGEX[memaddr_btb_AGEX] = PC_AGEX[31:6];
-      btb_value_AGEX[memaddr_btb_AGEX] = newpc_AGEX;
+      btb_tag_AGEX[curr_memaddr_btb_AGEX] = PC_AGEX[31:6];
+      btb_value_AGEX[curr_memaddr_btb_AGEX] = newpc_AGEX;
     end
   end
 

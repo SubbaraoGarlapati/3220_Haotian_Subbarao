@@ -47,9 +47,6 @@ VL_INLINE_OPT void Vproject2_frame_project2_frame___sequent__TOP__project2_frame
                                                            & (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[0U] 
                                                               >> 4U))] 
             = vlSelf->__PVT__my_AGEX_stage__DOT__newpc_AGEX;
-        vlSelf->__PVT__my_AGEX_stage__DOT__bhr_AGEX 
-            = (0xffU & (((IData)(vlSelf->__PVT__my_AGEX_stage__DOT__bhr_AGEX) 
-                         << 1U) | (IData)(vlSelf->__PVT__my_AGEX_stage__DOT__actual_br_direction)));
         if (((IData)(vlSelf->__PVT__my_AGEX_stage__DOT__actual_br_direction) 
              & (3U > vlSelf->__PVT__my_AGEX_stage__DOT__pt_AGEX
                 [(0xffU & (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[0U] 
@@ -57,7 +54,9 @@ VL_INLINE_OPT void Vproject2_frame_project2_frame___sequent__TOP__project2_frame
             vlSelf->__PVT__my_AGEX_stage__DOT__pt_AGEX[(0xffU 
                                                         & (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[0U] 
                                                            >> 8U))] 
-                = (3U & ((IData)(1U) + (IData)(vlSelf->__PVT__my_AGEX_stage__DOT__rd_val_pt_AGEX)));
+                = (3U & ((IData)(1U) + vlSelf->__PVT__my_AGEX_stage__DOT__pt_AGEX
+                         [(0xffU & (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[0U] 
+                                    >> 8U))]));
         } else if (((~ (IData)(vlSelf->__PVT__my_AGEX_stage__DOT__actual_br_direction)) 
                     & (0U < vlSelf->__PVT__my_AGEX_stage__DOT__pt_AGEX
                        [(0xffU & (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[0U] 
@@ -65,9 +64,13 @@ VL_INLINE_OPT void Vproject2_frame_project2_frame___sequent__TOP__project2_frame
             vlSelf->__PVT__my_AGEX_stage__DOT__pt_AGEX[(0xffU 
                                                         & (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[0U] 
                                                            >> 8U))] 
-                = (3U & ((IData)(vlSelf->__PVT__my_AGEX_stage__DOT__rd_val_pt_AGEX) 
-                         - (IData)(1U)));
+                = (3U & (vlSelf->__PVT__my_AGEX_stage__DOT__pt_AGEX
+                         [(0xffU & (vlSelf->__PVT__my_DE_stage__DOT__DE_latch[0U] 
+                                    >> 8U))] - (IData)(1U)));
         }
+        vlSelf->__PVT__my_AGEX_stage__DOT__bhr_AGEX 
+            = (0xffU & (((IData)(vlSelf->__PVT__my_AGEX_stage__DOT__bhr_AGEX) 
+                         << 1U) | (IData)(vlSelf->__PVT__my_AGEX_stage__DOT__actual_br_direction)));
     }
     if ((0x10U & vlSelf->__PVT__my_AGEX_stage__DOT__AGEX_latch[1U])) {
         vlSelf->__Vdlyvval__my_MEM_stage__DOT__dmem__v0 

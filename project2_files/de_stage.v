@@ -396,6 +396,7 @@ assign regval2_DE = regs[rs2_DE];
                                   
                                   memaddr_pt_DE,
                                   memaddr_btb_DE,
+                                  
                                   // more signals might need
                                    bus_canary_DE 
                                   }; 

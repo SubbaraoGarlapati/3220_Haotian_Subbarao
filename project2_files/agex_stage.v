@@ -71,7 +71,7 @@ module AGEX_STAGE(
   wire is_BTB_hit_AGEX;
   wire guessed_br_direction_AGEX;
   wire [`DBITS-1:0] guessed_br_address_AGEX;
-  wire [`PTINDEXBITS-1:0] memaddr_pt_AGEX;
+  // wire [`PTINDEXBITS-1:0] memaddr_pt_AGEX;
   
   //wire [`BTBINDEXBITS-1:0] memaddr_btb_DE;
  // **TODO: Complete the rest of the pipeline 
@@ -146,7 +146,7 @@ module AGEX_STAGE(
         br_cond_AGEX = 1;
       end else begin
         br_cond_AGEX = 0;
-      end;
+      end
     end
     else begin
       br_cond_AGEX = actual_br_direction;

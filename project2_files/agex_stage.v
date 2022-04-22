@@ -71,7 +71,7 @@ module AGEX_STAGE(
   wire is_BTB_hit_AGEX;
   wire guessed_br_direction_AGEX;
   wire [`DBITS-1:0] guessed_br_address_AGEX;
-  wire [`PTINDEXBITS-1:0] memaddr_pt_AGEX;
+  // wire [`PTINDEXBITS-1:0] memaddr_pt_AGEX;
   
   //wire [`BTBINDEXBITS-1:0] memaddr_btb_DE;
  // **TODO: Complete the rest of the pipeline 
@@ -146,7 +146,7 @@ module AGEX_STAGE(
         br_cond_AGEX = 1;
       end else begin
         br_cond_AGEX = 0;
-      end;
+      end
     end
     else begin
       br_cond_AGEX = actual_br_direction;
@@ -370,48 +370,358 @@ end
       AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
       hit_prediction_AGEX <= 0;
       branch_count_AGEX<=0;
-      // might need more code here  
+      bhr_AGEX <= {`BHRENTRYBITS{1'b0}};
+      pt_AGEX[0] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[1] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[2] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[3] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[4] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[5] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[6] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[7] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[8] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[9] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[10] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[11] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[12] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[13] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[14] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[15] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[16] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[17] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[18] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[19] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[20] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[21] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[22] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[23] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[24] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[25] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[26] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[27] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[28] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[29] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[30] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[31] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[32] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[33] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[34] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[35] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[36] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[37] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[38] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[39] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[40] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[41] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[42] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[43] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[44] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[45] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[46] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[47] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[48] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[49] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[50] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[51] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[52] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[53] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[54] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[55] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[56] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[57] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[58] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[59] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[60] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[61] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[62] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[63] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[64] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[65] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[66] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[67] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[68] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[69] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[70] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[71] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[72] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[73] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[74] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[75] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[76] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[77] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[78] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[79] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[80] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[81] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[82] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[83] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[84] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[85] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[86] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[87] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[88] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[89] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[90] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[91] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[92] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[93] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[94] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[95] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[96] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[97] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[98] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[99] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[100] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[101] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[102] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[103] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[104] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[105] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[106] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[107] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[108] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[109] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[110] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[111] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[112] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[113] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[114] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[115] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[116] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[117] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[118] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[119] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[120] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[121] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[122] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[123] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[124] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[125] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[126] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[127] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[128] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[129] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[130] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[131] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[132] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[133] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[134] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[135] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[136] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[137] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[138] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[139] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[140] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[141] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[142] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[143] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[144] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[145] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[146] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[147] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[148] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[149] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[150] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[151] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[152] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[153] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[154] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[155] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[156] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[157] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[158] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[159] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[160] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[161] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[162] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[163] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[164] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[165] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[166] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[167] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[168] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[169] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[170] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[171] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[172] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[173] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[174] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[175] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[176] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[177] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[178] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[179] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[180] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[181] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[182] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[183] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[184] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[185] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[186] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[187] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[188] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[189] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[190] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[191] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[192] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[193] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[194] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[195] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[196] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[197] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[198] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[199] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[200] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[201] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[202] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[203] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[204] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[205] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[206] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[207] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[208] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[209] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[210] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[211] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[212] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[213] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[214] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[215] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[216] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[217] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[218] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[219] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[220] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[221] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[222] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[223] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[224] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[225] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[226] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[227] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[228] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[229] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[230] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[231] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[232] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[233] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[234] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[235] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[236] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[237] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[238] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[239] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[240] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[241] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[242] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[243] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[244] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[245] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[246] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[247] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[248] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[249] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[250] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[251] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[252] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[253] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[254] <= {`PTENTRYBITS{1'b0}};
+      pt_AGEX[255] <= {`PTENTRYBITS{1'b0}};
+      btb_tag_AGEX[0] <= {`TAGBITS{1'b0}};
+      btb_tag_AGEX[1] <= {`TAGBITS{1'b0}};
+      btb_tag_AGEX[2] <= {`TAGBITS{1'b0}};
+      btb_tag_AGEX[3] <= {`TAGBITS{1'b0}};
+      btb_tag_AGEX[4] <= {`TAGBITS{1'b0}};
+      btb_tag_AGEX[5] <= {`TAGBITS{1'b0}};
+      btb_tag_AGEX[6] <= {`TAGBITS{1'b0}};
+      btb_tag_AGEX[7] <= {`TAGBITS{1'b0}};
+      btb_tag_AGEX[8] <= {`TAGBITS{1'b0}};
+      btb_tag_AGEX[9] <= {`TAGBITS{1'b0}};
+      btb_tag_AGEX[10] <= {`TAGBITS{1'b0}};
+      btb_tag_AGEX[11] <= {`TAGBITS{1'b0}};
+      btb_tag_AGEX[12] <= {`TAGBITS{1'b0}};
+      btb_tag_AGEX[13] <= {`TAGBITS{1'b0}};
+      btb_tag_AGEX[14] <= {`TAGBITS{1'b0}};
+      btb_tag_AGEX[15] <= {`TAGBITS{1'b0}};
+      btb_value_AGEX[0] <= {`DBITS{1'b0}};
+      btb_value_AGEX[1] <= {`DBITS{1'b0}};
+      btb_value_AGEX[2] <= {`DBITS{1'b0}};
+      btb_value_AGEX[3] <= {`DBITS{1'b0}};
+      btb_value_AGEX[4] <= {`DBITS{1'b0}};
+      btb_value_AGEX[5] <= {`DBITS{1'b0}};
+      btb_value_AGEX[6] <= {`DBITS{1'b0}};
+      btb_value_AGEX[7] <= {`DBITS{1'b0}};
+      btb_value_AGEX[8] <= {`DBITS{1'b0}};
+      btb_value_AGEX[9] <= {`DBITS{1'b0}};
+      btb_value_AGEX[10] <= {`DBITS{1'b0}};
+      btb_value_AGEX[11] <= {`DBITS{1'b0}};
+      btb_value_AGEX[12] <= {`DBITS{1'b0}};
+      btb_value_AGEX[13] <= {`DBITS{1'b0}};
+      btb_value_AGEX[14] <= {`DBITS{1'b0}};
+      btb_value_AGEX[15] <= {`DBITS{1'b0}};
+    end
+    else begin
+    
+      if (inst_AGEX == 0)
+        AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
+      else 
+        begin
+      // need to complete 
+          AGEX_latch <= AGEX_latch_contents ;
         end 
+    
+      if(op_I_AGEX == `BEQ_I || op_I_AGEX == `BNE_I || op_I_AGEX == `BLT_I || op_I_AGEX == `BGE_I || op_I_AGEX == `BLTU_I || op_I_AGEX == `BGEU_I || op_I_AGEX == `JAL_I || op_I_AGEX == `JALR_I) begin
+        branch_count_AGEX <= branch_count_AGEX+1;
+      end
+    
+      if (is_BTB_hit_AGEX) begin
+        if (guessed_br_direction_AGEX == actual_br_direction && guessed_br_address_AGEX == newpc_AGEX && actual_br_direction == 1) begin
+          hit_prediction_AGEX<=hit_prediction_AGEX+1;
+        end 
+      end
+
+      if (op_I_AGEX == `BEQ_I || op_I_AGEX == `BNE_I || op_I_AGEX == `BLT_I || op_I_AGEX == `BGE_I || op_I_AGEX == `BLTU_I || op_I_AGEX == `BGEU_I || op_I_AGEX == `JAL_I || op_I_AGEX == `JALR_I) begin
+        bhr_AGEX <= bhr_AGEX << 1 | {{7{1'b0}},actual_br_direction};
+      if (actual_br_direction == 1 && pt_AGEX[curr_memaddr_pt_AGEX] < 3) begin
+        pt_AGEX[curr_memaddr_pt_AGEX] = pt_AGEX[curr_memaddr_pt_AGEX] + 1;
+      end else if (actual_br_direction == 0 && pt_AGEX[curr_memaddr_pt_AGEX] > 0) begin
+          pt_AGEX[curr_memaddr_pt_AGEX] = pt_AGEX[curr_memaddr_pt_AGEX] - 1;
+      end
+        btb_tag_AGEX[curr_memaddr_btb_AGEX] = PC_AGEX[31:6];
+        btb_value_AGEX[curr_memaddr_btb_AGEX] = newpc_AGEX;
+      end
+    end
+
+  //     reg [`BHRENTRYBITS-1:0] bhr_AGEX;
+  // reg [`PTENTRYBITS-1:0] pt_AGEX [0:`PTENTRIES-1];
+  // reg [`TAGBITS-1:0] btb_tag_AGEX [0:`BTBENTRIES-1];
+  // reg [`DBITS-1:0] btb_value_AGEX [0:`BTBENTRIES-1];
+      // might need more code here  
+        // end 
     // else if (br_cond_AGEX == 1) begin
     //     AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
     //   end
 
-    else if (inst_AGEX == 0)
-      AGEX_latch <= {`AGEX_latch_WIDTH{1'b0}};
-    else 
-        begin
-      // need to complete 
-            AGEX_latch <= AGEX_latch_contents ;
-        end 
-    
-    if(op_I_AGEX == `BEQ_I || op_I_AGEX == `BNE_I || op_I_AGEX == `BLT_I || op_I_AGEX == `BGE_I || op_I_AGEX == `BLTU_I || op_I_AGEX == `BGEU_I || op_I_AGEX == `JAL_I || op_I_AGEX == `JALR_I) begin
-      branch_count_AGEX <= branch_count_AGEX+1;
-    end
-    
-    if (is_BTB_hit_AGEX) begin
-      if (guessed_br_direction_AGEX == actual_br_direction && guessed_br_address_AGEX == newpc_AGEX && actual_br_direction == 1) begin
-        hit_prediction_AGEX<=hit_prediction_AGEX+1;
-      end 
-    end
+    // else 
   end
 
 //might need to be negedge
 //update bhr, pt, btb
 // wire pt_value_AGEX = pt_AGEX[memaddr_pt_AGEX];
 
-  always @ (posedge clk) begin
-    if (op_I_AGEX == `BEQ_I || op_I_AGEX == `BNE_I || op_I_AGEX == `BLT_I || op_I_AGEX == `BGE_I || op_I_AGEX == `BLTU_I || op_I_AGEX == `BGEU_I || op_I_AGEX == `JAL_I || op_I_AGEX == `JALR_I) begin
-      bhr_AGEX = bhr_AGEX << 1 | {{7{1'b0}},actual_br_direction};
+  // always @ (posedge clk) begin
+  //   if (op_I_AGEX == `BEQ_I || op_I_AGEX == `BNE_I || op_I_AGEX == `BLT_I || op_I_AGEX == `BGE_I || op_I_AGEX == `BLTU_I || op_I_AGEX == `BGEU_I || op_I_AGEX == `JAL_I || op_I_AGEX == `JALR_I) begin
+  //     bhr_AGEX <= bhr_AGEX << 1 | {{7{1'b0}},actual_br_direction};
 
-      if (actual_br_direction == 1 && pt_AGEX[curr_memaddr_pt_AGEX] < 3) begin
-        pt_AGEX[curr_memaddr_pt_AGEX] = pt_AGEX[curr_memaddr_pt_AGEX] + 1;
-      end else if (actual_br_direction == 0 && pt_AGEX[curr_memaddr_pt_AGEX] > 0) begin
-        pt_AGEX[curr_memaddr_pt_AGEX] = pt_AGEX[curr_memaddr_pt_AGEX] - 1;
-      end
-      btb_tag_AGEX[curr_memaddr_btb_AGEX] = PC_AGEX[31:6];
-      btb_value_AGEX[curr_memaddr_btb_AGEX] = newpc_AGEX;
-    end
-  end
+  //     if (actual_br_direction == 1 && pt_AGEX[curr_memaddr_pt_AGEX] < 3) begin
+  //       pt_AGEX[curr_memaddr_pt_AGEX] = pt_AGEX[curr_memaddr_pt_AGEX] + 1;
+  //     end else if (actual_br_direction == 0 && pt_AGEX[curr_memaddr_pt_AGEX] > 0) begin
+  //       pt_AGEX[curr_memaddr_pt_AGEX] = pt_AGEX[curr_memaddr_pt_AGEX] - 1;
+  //     end
+  //     btb_tag_AGEX[curr_memaddr_btb_AGEX] = PC_AGEX[31:6];
+  //     btb_value_AGEX[curr_memaddr_btb_AGEX] = newpc_AGEX;
+  //   end
+  // end
 
 
 

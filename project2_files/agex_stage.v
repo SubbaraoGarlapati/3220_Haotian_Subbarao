@@ -128,7 +128,7 @@ module AGEX_STAGE(
     end
   // logic if BTB is hit or not
     
-    
+    //br_cond_AGEX = actual_br_direction;
   end
   reg[`DBITS-1:0] actual_branch_address_AGEX;
   

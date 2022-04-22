@@ -87,6 +87,7 @@ module FE_STAGE(
   wire [`BTBINDEXBITS-1:0] memaddr_btb_FE;
 
   assign memaddr_pt_FE = PC_FE_latch[9:2] ^ rd_val_bhr_FE;
+  //assign memaddr_pt_FE = PC_FE_latch[8:2];
   assign memaddr_btb_FE = PC_FE_latch[5:2];
 
   assign from_FE_to_AGEX = {memaddr_pt_FE, memaddr_btb_FE};
@@ -101,7 +102,7 @@ module FE_STAGE(
 
   wire is_BTB_hit_FE = (rd_val_btb_tag_FE == PC_FE_latch[31:6]) ? 1 : 0;
   wire guessed_br_direction_FE = (rd_val_pt_FE >= 2) ? 1 : 0;
-  wire [`DBITS-1:0] guessed_br_address = (rd_val_pt_FE >= 2) ? rd_val_btb_value_FE : pcplus_FE;
+  wire [`DBITS-1:0] guessed_br_address = (rd_val_pt_FE >=2) ? rd_val_btb_value_FE : pcplus_FE;
 
   assign stall_pipe_FE = from_DE_to_FE;
 

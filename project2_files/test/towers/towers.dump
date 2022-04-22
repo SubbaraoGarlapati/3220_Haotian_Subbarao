@@ -390,7 +390,7 @@ Disassembly of section .text:
  798:	00000013          	nop
 
 0000079c <_last>:
- 79c:	fe9ff06f          	j	784 <end>
+ 79c:	fe9ff06f          	j	784m <end>
 
 Disassembly of section .data:
 

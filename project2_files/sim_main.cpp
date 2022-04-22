@@ -130,6 +130,7 @@ int main(int argc, char** argv, char** env) {
         std::cout<<"Passed! cycle_count:" << last_print_inst_count_WB << std::endl; 
     else 
         std::cout<<"Failed. exitcode: "<<exitcode<<std::endl; 
+        std::cout<<"Cycle_count:" << last_print_inst_count_WB << std::endl; 
 
     // Fin
     exit(0);

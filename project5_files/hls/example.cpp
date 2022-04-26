@@ -89,8 +89,7 @@ void example(hls::stream< ap_axis<32,2,5,6> > &A,
 
     int dst[TEST_IMG_ROWS*TEST_IMG_COLS];
     int padded_dst[(TEST_IMG_ROWS+KERNEL_HEIGHT)*(TEST_IMG_COLS+KERNEL_WIDTH)];
-
-
+    //#pragma HLS ARRAY_PARTITION variable = padded_dst type=cyclic factor=2
         // Clear dst frame buffer
     int padd_height = height + 2*border_height;
     int padd_width = width + 2*border_width;
@@ -103,6 +102,9 @@ void example(hls::stream< ap_axis<32,2,5,6> > &A,
             Clear_padded:for(int i = 0; i < padd_height * padd_width; i++){
                 padded_dst[i]=0;
             }
+
+            //comment the loops below for removing loops
+            /*
             paddI:for(int i = 0; i < height ; i++){
                 paddJ:for (int j = 0 ; j < width ; j++){
                     int pos = i*width + j;
@@ -116,13 +118,18 @@ void example(hls::stream< ap_axis<32,2,5,6> > &A,
                 }
             }
         // pad images
+         * */
+
+        
 
 
             // Horizontal convolution pass - makes O(K*K) reads from input image
                // per output pixel
-                convR:for(int row = border_height; row < height+border_height ; row++){
-                  convC:for(int col = border_width; col < width+border_width ; col++){
-                   	   int pixel = (row-border_height) * width + (col-border_width);
+
+                //code for removing loops
+                convR:for(int row = 0; row < height; row++){
+                  convC:for(int col = 0; col < width; col++){
+                          int pixel = row * width + col;
                           #if DEBUG
                 	    printf("col:%d row:%d output pixel loc is %d:\n ", col, row, pixel);
                         #endif
@@ -134,8 +141,44 @@ void example(hls::stream< ap_axis<32,2,5,6> > &A,
 
                     		   int src_loc = (row - border_height)*padd_width + (col-border_width) + j + (i)*padd_width;
                     		   int kernel_loc = j + i * KERNEL_HEIGHT ;
+                               int src = row * width + col;
+                               int ker = j + i * KERNEL_HEIGHT ;
+                               if(row == 0) {
+                                   if(col == 0 && i > 0 && j > 0) {
+                                       tmp += local_in_buffer[src] * kernel[ker];//top left
+                                   } else if(col == width - 1 && i <2 && j > 0) {
+                                        tmp += local_in_buffer[src] * kernel[ker];//top right
+                                   } else if( j > 0){
+                                       tmp += local_in_buffer[src] * kernel[ker];
+                                   }
+                               } else if(row == height - 1) {
+                                  if(col == 0 && i > 0 && j < 2) {
+                                       tmp += local_in_buffer[src] * kernel[ker]; // bot left corner
+                                   } else if(col == width - 1 && i <2 && j < 2) { // bot right corner
+                                        tmp += local_in_buffer[src] * kernel[ker];
+                                   } else if(j < 2){ // bot row
+                                       tmp += local_in_buffer[src] * kernel[ker];
+                                   }
+                               }else if(col == 0) {
+                                 
+                                   if(i > 0){ // left col
+                                       tmp += local_in_buffer[src] * kernel[ker];
+                                   }
+                               }else if(col == width - 1) { //right col
+                                  if(i < 2){ // bot row
+                                       tmp += local_in_buffer[src] * kernel[ker];
+                                   }
+                               } else {
+                                    tmp += local_in_buffer[src] * kernel[ker];
+                               }
 
-                                tmp += padded_dst[src_loc] * kernel[kernel_loc];
+
+                               
+
+
+
+                                //tmp+= local_in_buffer[src_loc]*kernel[kernel_loc];
+                                //tmp += padded_dst[src_loc] * kernel[kernel_loc];
                                 #if DEBUG
                                 printf("output[%d]:%d += padded[%d]:%d * kernel[%d]:%d  src[%d]:%d \n",
                         		   pixel, dst[pixel], src_loc, padded_dst[src_loc], kernel_loc, kernel[kernel_loc], pixel, src[pixel]);
@@ -151,6 +194,43 @@ void example(hls::stream< ap_axis<32,2,5,6> > &A,
                    }
 
                }
+
+
+            //original code  
+            //comment out if using removed loops 
+                /*
+            convR:for(int row = border_height; row < height+border_height ; row++){
+                            convC:for(int col = border_width; col < width+border_width ; col++){
+                                int pixel = (row-border_height) * width + (col-border_width);
+                                    #if DEBUG
+                                    printf("col:%d row:%d output pixel loc is %d:\n ", col, row, pixel);
+                                    #endif
+
+                #pragma HLS unroll
+                                    data_t tmp= 0;
+                                KERNELH:for(int i = 0; i < KERNEL_WIDTH; i++){
+                                    KERNELW:for (int j = 0; j< KERNEL_HEIGHT; j++){
+
+                                        int src_loc = (row - border_height)*padd_width + (col-border_width) + j + (i)*padd_width;
+                                        int kernel_loc = j + i * KERNEL_HEIGHT ;
+
+                                            tmp += padded_dst[src_loc] * kernel[kernel_loc];
+                                            #if DEBUG
+                                            printf("output[%d]:%d += padded[%d]:%d * kernel[%d]:%d  src[%d]:%d \n",
+                                            pixel, dst[pixel], src_loc, padded_dst[src_loc], kernel_loc, kernel[kernel_loc], pixel, src[pixel]);
+                                            #endif
+
+                                    }
+
+                                }
+                                    local_out_buffer[pixel] = tmp;
+                                #if DEBUG
+                            printf("==============\n");
+                            #endif
+                            }
+
+                        }
+                        */
 
 
 

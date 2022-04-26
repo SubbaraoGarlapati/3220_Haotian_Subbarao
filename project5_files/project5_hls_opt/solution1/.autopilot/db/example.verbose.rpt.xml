@@ -1,0 +1,192 @@
+<profile>
+
+<section name = "Vitis HLS Report for 'example'" level="0">
+<item name = "Date">Tue Apr 26 03:20:40 2022
+</item>
+<item name = "Version">2021.2 (Build 3367213 on Tue Oct 19 02:48:09 MDT 2021)</item>
+<item name = "Project">project5_hls_opt</item>
+<item name = "Solution">solution1 (Vivado IP Flow Target)</item>
+<item name = "Product family">zynq</item>
+<item name = "Target device">xc7z020-clg400-1</item>
+</section>
+
+<section name = "Performance Estimates" level="0">
+<item name = "Timing">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="4">Clock, Target, Estimated, Uncertainty</keys>
+<column name="ap_clk">10.00 ns, 8.223 ns, 2.70 ns</column>
+</table>
+</item>
+</section>
+</item>
+<item name = "Latency">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="8">, min, max, min, max, min, max, Type</keys>
+<column name="">?, ?, ?, ?, ?, ?, no</column>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="0">
+<keys size="9">Instance, Module, min, max, min, max, min, max, Type</keys>
+<column name="grp_example_Pipeline_KENEL_INIT_fu_197">example_Pipeline_KENEL_INIT, 11, 11, 0.110 us, 0.110 us, 11, 11, no</column>
+<column name="grp_example_Pipeline_RECEIVING_INPUT_fu_203">example_Pipeline_RECEIVING_INPUT, ?, ?, ?, ?, ?, ?, no</column>
+<column name="grp_example_Pipeline_Clear_dst_fu_229">example_Pipeline_Clear_dst, 902, 902, 9.020 us, 9.020 us, 902, 902, no</column>
+<column name="grp_example_Pipeline_convR_fu_234">example_Pipeline_convR, 459, 459, 4.590 us, 4.590 us, 459, 459, no</column>
+<column name="grp_example_Pipeline_SENDING_OUTPUT_fu_251">example_Pipeline_SENDING_OUTPUT, ?, ?, ?, ?, ?, ?, no</column>
+</table>
+</item>
+<item name = "Loop"><table name="" hasTotal="0">
+<keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
+</table>
+</item>
+</section>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Utilization Estimates" level="0">
+<item name = "Summary"><table name="" hasTotal="1">
+<keys size="6">Name, BRAM_18K, DSP, FF, LUT, URAM</keys>
+<column name="DSP">-, -, -, -, -</column>
+<column name="Expression">-, -, 0, 2, -</column>
+<column name="FIFO">-, -, -, -, -</column>
+<column name="Instance">0, 165, 18853, 19507, -</column>
+<column name="Memory">64, -, 64, 5, 0</column>
+<column name="Multiplexer">-, -, -, 321, -</column>
+<column name="Register">-, -, 360, -, -</column>
+<specialColumn name="Available">280, 220, 106400, 53200, 0</specialColumn>
+<specialColumn name="Utilization (%)">22, 75, 18, 37, 0</specialColumn>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="1">
+<keys size="7">Instance, Module, BRAM_18K, DSP, FF, LUT, URAM</keys>
+<column name="control_s_axi_U">control_s_axi, 0, 0, 43, 42, 0</column>
+<column name="grp_example_Pipeline_Clear_dst_fu_229">example_Pipeline_Clear_dst, 0, 0, 12, 51, 0</column>
+<column name="grp_example_Pipeline_KENEL_INIT_fu_197">example_Pipeline_KENEL_INIT, 0, 0, 6, 86, 0</column>
+<column name="grp_example_Pipeline_RECEIVING_INPUT_fu_203">example_Pipeline_RECEIVING_INPUT, 0, 0, 99, 188, 0</column>
+<column name="grp_example_Pipeline_SENDING_OUTPUT_fu_251">example_Pipeline_SENDING_OUTPUT, 0, 0, 167, 224, 0</column>
+<column name="grp_example_Pipeline_convR_fu_234">example_Pipeline_convR, 0, 165, 18526, 18916, 0</column>
+</table>
+</item>
+<item name = "DSP"><table name="" hasTotal="0">
+<keys size="3">Instance, Module, Expression</keys>
+</table>
+</item>
+<item name = "Memory"><table name="" hasTotal="1">
+<keys size="10">Memory, Module, BRAM_18K, FF, LUT, URAM, Words, Bits, Banks, W*Bits*Banks</keys>
+<column name="kernel_U">kernel_RAM_AUTO_1R1W, 0, 64, 5, 0, 9, 32, 1, 288</column>
+<column name="local_in_buffer_U">local_in_buffer_RAM_1WNR_AUTO_1R1W, 32, 0, 0, 0, 16000, 32, 1, 512000</column>
+<column name="local_out_buffer_U">local_out_buffer_RAM_AUTO_1R1W, 32, 0, 0, 0, 16000, 32, 1, 512000</column>
+</table>
+</item>
+<item name = "FIFO"><table name="" hasTotal="1">
+<keys size="8">Name, BRAM_18K, FF, LUT, URAM, Depth, Bits, Size:D*B</keys>
+</table>
+</item>
+<item name = "Expression"><table name="" hasTotal="1">
+<keys size="7">Variable Name, Operation, DSP, FF, LUT, Bitwidth P0, Bitwidth P1</keys>
+<column name="grp_example_Pipeline_SENDING_OUTPUT_fu_251_B_TREADY">and, 0, 0, 2, 1, 1</column>
+</table>
+</item>
+<item name = "Multiplexer"><table name="" hasTotal="1">
+<keys size="5">Name, LUT, Input Size, Bits, Total Bits</keys>
+<column name="A_TREADY_int_regslice">9, 2, 1, 2</column>
+<column name="ap_NS_fsm">65, 15, 1, 15</column>
+<column name="kernel_address0">42, 8, 4, 32</column>
+<column name="kernel_address1">25, 5, 4, 20</column>
+<column name="kernel_ce0">20, 4, 1, 4</column>
+<column name="kernel_d0">14, 3, 32, 96</column>
+<column name="kernel_we0">14, 3, 1, 3</column>
+<column name="local_in_buffer_address0">14, 3, 14, 42</column>
+<column name="local_in_buffer_ce0">14, 3, 1, 3</column>
+<column name="local_in_buffer_ce1">9, 2, 1, 2</column>
+<column name="local_in_buffer_we0">9, 2, 1, 2</column>
+<column name="local_out_buffer_address0">20, 4, 14, 56</column>
+<column name="local_out_buffer_ce0">20, 4, 1, 4</column>
+<column name="local_out_buffer_ce1">9, 2, 1, 2</column>
+<column name="local_out_buffer_d0">14, 3, 32, 96</column>
+<column name="local_out_buffer_we0">14, 3, 1, 3</column>
+<column name="local_out_buffer_we1">9, 2, 1, 2</column>
+</table>
+</item>
+<item name = "Register"><table name="" hasTotal="1">
+<keys size="5">Name, FF, LUT, Bits, Const Bits</keys>
+<column name="ap_CS_fsm">14, 0, 14, 0</column>
+<column name="grp_example_Pipeline_Clear_dst_fu_229_ap_start_reg">1, 0, 1, 0</column>
+<column name="grp_example_Pipeline_KENEL_INIT_fu_197_ap_start_reg">1, 0, 1, 0</column>
+<column name="grp_example_Pipeline_RECEIVING_INPUT_fu_203_ap_start_reg">1, 0, 1, 0</column>
+<column name="grp_example_Pipeline_SENDING_OUTPUT_fu_251_ap_start_reg">1, 0, 1, 0</column>
+<column name="grp_example_Pipeline_convR_fu_234_ap_start_reg">1, 0, 1, 0</column>
+<column name="ii_loc_fu_100">32, 0, 32, 0</column>
+<column name="kernel_load_1_reg_356">32, 0, 32, 0</column>
+<column name="kernel_load_2_reg_361">32, 0, 32, 0</column>
+<column name="kernel_load_3_reg_376">32, 0, 32, 0</column>
+<column name="kernel_load_4_reg_381">32, 0, 32, 0</column>
+<column name="kernel_load_5_reg_396">32, 0, 32, 0</column>
+<column name="kernel_load_6_reg_401">32, 0, 32, 0</column>
+<column name="kernel_load_7_reg_416">32, 0, 32, 0</column>
+<column name="kernel_load_8_reg_421">32, 0, 32, 0</column>
+<column name="kernel_load_reg_346">32, 0, 32, 0</column>
+<column name="tmp_dest_V_loc_fu_80">6, 0, 6, 0</column>
+<column name="tmp_id_V_loc_fu_84">5, 0, 5, 0</column>
+<column name="tmp_keep_V_loc_fu_96">4, 0, 4, 0</column>
+<column name="tmp_strb_V_loc_fu_92">4, 0, 4, 0</column>
+<column name="tmp_user_V_loc_fu_88">2, 0, 2, 0</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Interface" level="0">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="6">RTL Ports, Dir, Bits, Protocol, Source Object, C Type</keys>
+<column name="s_axi_control_AWVALID">in, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_AWREADY">out, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_AWADDR">in, 4, s_axi, control, scalar</column>
+<column name="s_axi_control_WVALID">in, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_WREADY">out, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_WDATA">in, 32, s_axi, control, scalar</column>
+<column name="s_axi_control_WSTRB">in, 4, s_axi, control, scalar</column>
+<column name="s_axi_control_ARVALID">in, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_ARREADY">out, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_ARADDR">in, 4, s_axi, control, scalar</column>
+<column name="s_axi_control_RVALID">out, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_RREADY">in, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_RDATA">out, 32, s_axi, control, scalar</column>
+<column name="s_axi_control_RRESP">out, 2, s_axi, control, scalar</column>
+<column name="s_axi_control_BVALID">out, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_BREADY">in, 1, s_axi, control, scalar</column>
+<column name="s_axi_control_BRESP">out, 2, s_axi, control, scalar</column>
+<column name="ap_local_block">out, 1, ap_ctrl_hs, example, return value</column>
+<column name="ap_clk">in, 1, ap_ctrl_hs, example, return value</column>
+<column name="ap_rst_n">in, 1, ap_ctrl_hs, example, return value</column>
+<column name="interrupt">out, 1, ap_ctrl_hs, example, return value</column>
+<column name="A_TDATA">in, 32, axis, A_V_data_V, pointer</column>
+<column name="A_TVALID">in, 1, axis, A_V_dest_V, pointer</column>
+<column name="A_TREADY">out, 1, axis, A_V_dest_V, pointer</column>
+<column name="A_TDEST">in, 6, axis, A_V_dest_V, pointer</column>
+<column name="A_TKEEP">in, 4, axis, A_V_keep_V, pointer</column>
+<column name="A_TSTRB">in, 4, axis, A_V_strb_V, pointer</column>
+<column name="A_TUSER">in, 2, axis, A_V_user_V, pointer</column>
+<column name="A_TLAST">in, 1, axis, A_V_last_V, pointer</column>
+<column name="A_TID">in, 5, axis, A_V_id_V, pointer</column>
+<column name="B_TDATA">out, 32, axis, B_V_data_V, pointer</column>
+<column name="B_TVALID">out, 1, axis, B_V_dest_V, pointer</column>
+<column name="B_TREADY">in, 1, axis, B_V_dest_V, pointer</column>
+<column name="B_TDEST">out, 6, axis, B_V_dest_V, pointer</column>
+<column name="B_TKEEP">out, 4, axis, B_V_keep_V, pointer</column>
+<column name="B_TSTRB">out, 4, axis, B_V_strb_V, pointer</column>
+<column name="B_TUSER">out, 2, axis, B_V_user_V, pointer</column>
+<column name="B_TLAST">out, 1, axis, B_V_last_V, pointer</column>
+<column name="B_TID">out, 5, axis, B_V_id_V, pointer</column>
+</table>
+</item>
+</section>
+</profile>

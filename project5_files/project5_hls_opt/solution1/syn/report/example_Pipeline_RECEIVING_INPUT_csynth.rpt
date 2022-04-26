@@ -1,0 +1,168 @@
+
+
+================================================================
+== Vitis HLS Report for 'example_Pipeline_RECEIVING_INPUT'
+================================================================
+* Date:           Tue Apr 26 03:20:35 2022
+
+* Version:        2021.2 (Build 3367213 on Tue Oct 19 02:48:09 MDT 2021)
+* Project:        project5_hls_opt
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: zynq
+* Target device:  xc7z020-clg400-1
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+----------+----------+------------+
+    |  Clock |  Target  | Estimated| Uncertainty|
+    +--------+----------+----------+------------+
+    |ap_clk  |  10.00 ns|  6.030 ns|     2.70 ns|
+    +--------+----------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |        ?|        ?|         ?|         ?|    ?|    ?|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                   |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |     Loop Name     |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- RECEIVING_INPUT  |        ?|        ?|         1|          1|          1|     ?|       yes|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+-----+--------+-------+-----+
+|       Name      | BRAM_18K| DSP |   FF   |  LUT  | URAM|
++-----------------+---------+-----+--------+-------+-----+
+|DSP              |        -|    -|       -|      -|    -|
+|Expression       |        -|    -|       0|    143|    -|
+|FIFO             |        -|    -|       -|      -|    -|
+|Instance         |        -|    -|       -|      -|    -|
+|Memory           |        -|    -|       -|      -|    -|
+|Multiplexer      |        -|    -|       -|     45|    -|
+|Register         |        -|    -|      99|      -|    -|
++-----------------+---------+-----+--------+-------+-----+
+|Total            |        0|    0|      99|    188|    0|
++-----------------+---------+-----+--------+-------+-----+
+|Available        |      280|  220|  106400|  53200|    0|
++-----------------+---------+-----+--------+-------+-----+
+|Utilization (%)  |        0|    0|      ~0|     ~0|    0|
++-----------------+---------+-----+--------+-------+-----+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +---------------------------+----------+----+---+----+------------+------------+
+    |       Variable Name       | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +---------------------------+----------+----+---+----+------------+------------+
+    |add_ln60_fu_224_p2         |         +|   0|  0|  71|          64|           1|
+    |jj_2_fu_233_p2             |         +|   0|  0|  39|          32|           1|
+    |ap_block_pp0_stage0_01001  |       and|   0|  0|   2|           1|           1|
+    |icmp_ln58_fu_218_p2        |      icmp|   0|  0|  29|          64|          10|
+    |ap_enable_pp0              |       xor|   0|  0|   2|           1|           2|
+    +---------------------------+----------+----+---+----+------------+------------+
+    |Total                      |          |   0|  0| 143|         162|          15|
+    +---------------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-------------------------+----+-----------+-----+-----------+
+    |           Name          | LUT| Input Size| Bits| Total Bits|
+    +-------------------------+----+-----------+-----+-----------+
+    |A_TDATA_blk_n            |   9|          2|    1|          2|
+    |ap_done_int              |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter1  |   9|          2|    1|          2|
+    |ii_fu_70                 |   9|          2|   64|        128|
+    |jj_fu_74                 |   9|          2|   32|         64|
+    +-------------------------+----+-----------+-----+-----------+
+    |Total                    |  45|         10|   99|        198|
+    +-------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-------------------------+----+----+-----+-----------+
+    |           Name          | FF | LUT| Bits| Const Bits|
+    +-------------------------+----+----+-----+-----------+
+    |ap_CS_fsm                |   1|   0|    1|          0|
+    |ap_done_reg              |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter1  |   1|   0|    1|          0|
+    |ii_fu_70                 |  64|   0|   64|          0|
+    |jj_fu_74                 |  32|   0|   32|          0|
+    +-------------------------+----+----+-----+-----------+
+    |Total                    |  99|   0|   99|          0|
+    +-------------------------+----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++--------------------------+-----+-----+------------+----------------------------------+--------------+
+|         RTL Ports        | Dir | Bits|  Protocol  |           Source Object          |    C Type    |
++--------------------------+-----+-----+------------+----------------------------------+--------------+
+|ap_clk                    |   in|    1|  ap_ctrl_hs|  example_Pipeline_RECEIVING_INPUT|  return value|
+|ap_rst                    |   in|    1|  ap_ctrl_hs|  example_Pipeline_RECEIVING_INPUT|  return value|
+|ap_start                  |   in|    1|  ap_ctrl_hs|  example_Pipeline_RECEIVING_INPUT|  return value|
+|ap_done                   |  out|    1|  ap_ctrl_hs|  example_Pipeline_RECEIVING_INPUT|  return value|
+|ap_idle                   |  out|    1|  ap_ctrl_hs|  example_Pipeline_RECEIVING_INPUT|  return value|
+|ap_ready                  |  out|    1|  ap_ctrl_hs|  example_Pipeline_RECEIVING_INPUT|  return value|
+|A_TVALID                  |   in|    1|        axis|                        A_V_data_V|       pointer|
+|A_TDATA                   |   in|   32|        axis|                        A_V_data_V|       pointer|
+|A_TREADY                  |  out|    1|        axis|                        A_V_dest_V|       pointer|
+|A_TDEST                   |   in|    6|        axis|                        A_V_dest_V|       pointer|
+|A_TKEEP                   |   in|    4|        axis|                        A_V_keep_V|       pointer|
+|A_TSTRB                   |   in|    4|        axis|                        A_V_strb_V|       pointer|
+|A_TUSER                   |   in|    2|        axis|                        A_V_user_V|       pointer|
+|A_TLAST                   |   in|    1|        axis|                        A_V_last_V|       pointer|
+|A_TID                     |   in|    5|        axis|                          A_V_id_V|       pointer|
+|kernel_address0           |  out|    4|   ap_memory|                            kernel|         array|
+|kernel_ce0                |  out|    1|   ap_memory|                            kernel|         array|
+|kernel_we0                |  out|    1|   ap_memory|                            kernel|         array|
+|kernel_d0                 |  out|   32|   ap_memory|                            kernel|         array|
+|local_in_buffer_address0  |  out|   14|   ap_memory|                   local_in_buffer|         array|
+|local_in_buffer_ce0       |  out|    1|   ap_memory|                   local_in_buffer|         array|
+|local_in_buffer_we0       |  out|    1|   ap_memory|                   local_in_buffer|         array|
+|local_in_buffer_d0        |  out|   32|   ap_memory|                   local_in_buffer|         array|
+|ii_out                    |  out|   32|      ap_vld|                            ii_out|       pointer|
+|ii_out_ap_vld             |  out|    1|      ap_vld|                            ii_out|       pointer|
+|tmp_keep_V_out            |  out|    4|      ap_vld|                    tmp_keep_V_out|       pointer|
+|tmp_keep_V_out_ap_vld     |  out|    1|      ap_vld|                    tmp_keep_V_out|       pointer|
+|tmp_strb_V_out            |  out|    4|      ap_vld|                    tmp_strb_V_out|       pointer|
+|tmp_strb_V_out_ap_vld     |  out|    1|      ap_vld|                    tmp_strb_V_out|       pointer|
+|tmp_user_V_out            |  out|    2|      ap_vld|                    tmp_user_V_out|       pointer|
+|tmp_user_V_out_ap_vld     |  out|    1|      ap_vld|                    tmp_user_V_out|       pointer|
+|tmp_id_V_out              |  out|    5|      ap_vld|                      tmp_id_V_out|       pointer|
+|tmp_id_V_out_ap_vld       |  out|    1|      ap_vld|                      tmp_id_V_out|       pointer|
+|tmp_dest_V_out            |  out|    6|      ap_vld|                    tmp_dest_V_out|       pointer|
+|tmp_dest_V_out_ap_vld     |  out|    1|      ap_vld|                    tmp_dest_V_out|       pointer|
++--------------------------+-----+-----+------------+----------------------------------+--------------+
+

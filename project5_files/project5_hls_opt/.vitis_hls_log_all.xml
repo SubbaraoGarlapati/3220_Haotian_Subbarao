@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vivadoHLSLog:LogRoot xmlns:vivadoHLSLog="www.xilinx.com/vivadoHLSLog">
+  <errorLogs>
+    <logs>
+      <synLog/>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog/>
+    </logs>
+  </errorLogs>
+  <warningLogs>
+    <logs>
+      <synLog>
+        <logs message="WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low." projectName="project5_hls_opt" solutionName="solution1" date="2022-04-26T03:20:40.777-0400" type="Warning"/>
+        <logs message="WARNING: [HLS 200-885] The II Violation in module 'example_Pipeline_convR' (loop 'convR'): Unable to schedule 'store' operation ('local_out_buffer_addr_27_write_ln190', hls/example.cpp:190) of variable 'tmp_163_2_2', hls/example.cpp:130 on array 'local_out_buffer' due to limited memory ports (II = 14). Please consider using a memory core with more ports or partitioning the array 'local_out_buffer'.&#xD;&#xA;Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-885.html" projectName="project5_hls_opt" solutionName="solution1" date="2022-04-26T03:20:30.280-0400" type="Warning"/>
+        <logs message="WARNING: [HLS 200-885] The II Violation in module 'example_Pipeline_convR' (loop 'convR'): Unable to schedule 'store' operation ('local_out_buffer_addr_25_write_ln190', hls/example.cpp:190) of variable 'tmp_151_2_2', hls/example.cpp:130 on array 'local_out_buffer' due to limited memory ports (II = 13). Please consider using a memory core with more ports or partitioning the array 'local_out_buffer'.&#xD;&#xA;Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-885.html" projectName="project5_hls_opt" solutionName="solution1" date="2022-04-26T03:20:29.658-0400" type="Warning"/>
+        <logs message="WARNING: [HLS 200-885] The II Violation in module 'example_Pipeline_convR' (loop 'convR'): Unable to schedule 'store' operation ('local_out_buffer_addr_21_write_ln190', hls/example.cpp:190) of variable 'tmp_127_2_2', hls/example.cpp:130 on array 'local_out_buffer' due to limited memory ports (II = 11). Please consider using a memory core with more ports or partitioning the array 'local_out_buffer'.&#xD;&#xA;Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-885.html" projectName="project5_hls_opt" solutionName="solution1" date="2022-04-26T03:20:28.730-0400" type="Warning"/>
+        <logs message="WARNING: [HLS 200-885] The II Violation in module 'example_Pipeline_convR' (loop 'convR'): Unable to schedule 'store' operation ('local_out_buffer_addr_7_write_ln190', hls/example.cpp:190) of variable 'tmp_43_2_2', hls/example.cpp:130 on array 'local_out_buffer' due to limited memory ports (II = 4). Please consider using a memory core with more ports or partitioning the array 'local_out_buffer'.&#xD;&#xA;Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-885.html" projectName="project5_hls_opt" solutionName="solution1" date="2022-04-26T03:20:28.056-0400" type="Warning"/>
+        <logs message="WARNING: [HLS 200-885] The II Violation in module 'example_Pipeline_convR' (loop 'convR'): Unable to schedule 'store' operation ('local_out_buffer_addr_5_write_ln190', hls/example.cpp:190) of variable 'tmp_31_2_2', hls/example.cpp:130 on array 'local_out_buffer' due to limited memory ports (II = 3). Please consider using a memory core with more ports or partitioning the array 'local_out_buffer'.&#xD;&#xA;Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-885.html" projectName="project5_hls_opt" solutionName="solution1" date="2022-04-26T03:20:27.365-0400" type="Warning"/>
+        <logs message="WARNING: [HLS 200-885] The II Violation in module 'example_Pipeline_convR' (loop 'convR'): Unable to schedule 'store' operation ('local_out_buffer_addr_3_write_ln190', hls/example.cpp:190) of variable 'tmp_19_2_2', hls/example.cpp:130 on array 'local_out_buffer' due to limited memory ports (II = 2). Please consider using a memory core with more ports or partitioning the array 'local_out_buffer'.&#xD;&#xA;Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-885.html" projectName="project5_hls_opt" solutionName="solution1" date="2022-04-26T03:20:27.102-0400" type="Warning"/>
+        <logs message="WARNING: [HLS 200-885] The II Violation in module 'example_Pipeline_convR' (loop 'convR'): Unable to schedule 'load' operation ('local_in_buffer_load_16', hls/example.cpp:152) on array 'local_in_buffer' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'local_in_buffer'.&#xD;&#xA;Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-885.html" projectName="project5_hls_opt" solutionName="solution1" date="2022-04-26T03:20:26.902-0400" type="Warning"/>
+      </synLog>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog/>
+    </logs>
+  </warningLogs>
+</vivadoHLSLog:LogRoot>

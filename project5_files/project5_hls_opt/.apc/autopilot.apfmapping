@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
+  <source>
+    <originFiles name="convolution.h" path="C:\Users\Cody\Documents\cs3220\3220_Haotian_Subbarao\project5_files\hls\convolution.h"/>
+    <originFiles name="example.cpp" path="C:\Users\Cody\Documents\cs3220\3220_Haotian_Subbarao\project5_files\hls\example.cpp"/>
+  </source>
+  <testbench>
+    <originFiles name="conv_test.cpp" path="C:\Users\Cody\Documents\cs3220\3220_Haotian_Subbarao\project5_files\hls\conv_test.cpp"/>
+  </testbench>
+</autopilotfilemapping:AutoPilotFileMapping>

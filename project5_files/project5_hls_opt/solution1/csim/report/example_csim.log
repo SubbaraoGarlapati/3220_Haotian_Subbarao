@@ -1,0 +1,17 @@
+INFO: [SIM 2] *************** CSIM start ***************
+INFO: [SIM 4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../hls/example.cpp in debug mode
+   Generating csim.exe
+kernel i:0 j:0 val:0 
+kernel i:0 j:1 val:0 
+kernel i:0 j:2 val:0 
+kernel i:1 j:0 val:0 
+kernel i:1 j:1 val:1 
+kernel i:1 j:2 val:0 
+kernel i:2 j:0 val:0 
+kernel i:2 j:1 val:0 
+kernel i:2 j:2 val:0 
+
+*** TEST PASSED ***
+INFO: [SIM 1] CSim done with 0 errors.
+INFO: [SIM 3] *************** CSIM finish ***************

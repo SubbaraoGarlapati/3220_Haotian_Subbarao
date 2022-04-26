@@ -1,0 +1,17 @@
+#-----------------------------------------------------------
+# Vivado v2021.2 (64-bit)
+# SW Build 3367213 on Tue Oct 19 02:48:09 MDT 2021
+# IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+# Start of session at: Tue Apr 26 03:21:06 2022
+# Process ID: 9728
+# Current directory: C:/Users/Cody/Documents/cs3220/3220_Haotian_Subbarao/project5_files/project5_hls_opt/solution1/impl/ip
+# Command line: vivado.exe -notrace -mode batch -source run_ippack.tcl
+# Log file: C:/Users/Cody/Documents/cs3220/3220_Haotian_Subbarao/project5_files/project5_hls_opt/solution1/impl/ip/vivado.log
+# Journal file: C:/Users/Cody/Documents/cs3220/3220_Haotian_Subbarao/project5_files/project5_hls_opt/solution1/impl/ip\vivado.jou
+# Running On: DESKTOP-ANSRVL9, OS: Windows, CPU Frequency: 3696 MHz, CPU Physical cores: 6, Host memory: 17108 MB
+#-----------------------------------------------------------
+source run_ippack.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'E:/Xilinx/Vivado/2021.2/data/ip'.
+INFO: [Common 17-206] Exiting Vivado at Tue Apr 26 03:21:12 2022...
